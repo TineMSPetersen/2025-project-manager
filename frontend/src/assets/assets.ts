@@ -15,10 +15,14 @@ import space2 from './space2.jpg'
 import space3 from './space3.jpg'
 
 import header from './header.jpg'
+import logo from './logo.png'
+import settings from './settings.png'
 
 
 export const assets = {
   header,
+  logo,
+  settings
 }
 
 export const projects = [
