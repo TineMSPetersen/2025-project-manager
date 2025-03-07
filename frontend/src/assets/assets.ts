@@ -17,12 +17,24 @@ import space3 from './space3.jpg'
 import header from './header.jpg'
 import logo from './logo.png'
 import settings from './settings.png'
+import add from './add.png'
+import clock from './clock.png'
+import money from './money.png'
+import email from './email.png'
+import phone from './phone.png'
+import options from './options.png'
 
 
 export const assets = {
   header,
   logo,
-  settings
+  settings,
+  add,
+  clock,
+  money,
+  email,
+  phone,
+  options
 }
 
 export const projects = [
@@ -30,10 +42,13 @@ export const projects = [
     _id: "1",
     project_name: "SpaceXYZ",
     customer_name: "Karen",
+    customer_email: "karensomething@mail.com",
+    customer_phone: "12345678",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur  luctus dolor rhoncus mollis bibendum. Praesent vestibulum, dolor dapibus maximus sodales, ex ex euismod tellus, a maximus ipsum nunc auctor  lacus. Nunc turpis felis, vehicula quis porta ac, rhoncus quis nisi.  Donec aliquam tortor eu magna luctus tristique. Donec lacus mi,  efficitur quis pharetra nec, consectetur eget felis. Praesent eget  ultricies lorem. Sed volutpat accumsan purus non gravida. Aenean at  metus in lorem pellentesque dignissim sed ac diam.",
     images: [space1, space2, space3],
     notes: ["Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "Curabitur  luctus dolor rhoncus mollis bibendum.", "Praesent vestibulum, dolor dapibus maximus sodales, ex ex euismod tellus, a maximus ipsum nunc auctor  lacus."],
     paid: true,
+    amount_paid: 1100,
     date: 1716634345448,
     duedate: 1716634345448,
   },
@@ -45,6 +60,7 @@ export const projects = [
     images: [rose1, rose2, rose3, rose4],
     notes: ["Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "Curabitur  luctus dolor rhoncus mollis bibendum.", "Praesent vestibulum, dolor dapibus maximus sodales, ex ex euismod tellus, a maximus ipsum nunc auctor  lacus."],
     paid: false,
+    amount_paid: 800,
     date: 1716634345448,
     duedate: "",
   },
@@ -55,7 +71,7 @@ export const projects = [
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur  luctus dolor rhoncus mollis bibendum. Praesent vestibulum, dolor dapibus maximus sodales, ex ex euismod tellus, a maximus ipsum nunc auctor  lacus. Nunc turpis felis, vehicula quis porta ac, rhoncus quis nisi.  Donec aliquam tortor eu magna luctus tristique. Donec lacus mi,  efficitur quis pharetra nec, consectetur eget felis. Praesent eget  ultricies lorem. Sed volutpat accumsan purus non gravida. Aenean at  metus in lorem pellentesque dignissim sed ac diam.",
     images: [wolf1, wolf2, wolf3, wolf4, wolf5],
     notes: ["Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "Curabitur  luctus dolor rhoncus mollis bibendum.", "Praesent vestibulum, dolor dapibus maximus sodales, ex ex euismod tellus, a maximus ipsum nunc auctor  lacus."],
-    paid: true,
+    paid: false,
     date: 1716634345448,
     duedate: "",
   },
