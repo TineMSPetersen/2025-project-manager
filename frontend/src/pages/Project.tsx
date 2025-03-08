@@ -1,11 +1,12 @@
 import { useParams } from "react-router-dom";
 import { assets, projects } from "../assets/assets";
 import OptionsButton from "../components/OptionsButton";
+import OptionsMenu from "../components/OptionsMenu";
+import { useState } from "react";
 
 const Project = () => {
   const { projectId } = useParams();
-
-  console.log(projectId);
+  const [ optionsOpen, setOptionsOpen ] = useState(false);
 
   const projectInfo = projects.find((project) => project._id === projectId);
 
@@ -88,7 +89,24 @@ const Project = () => {
         <p>Project not found</p>
       )}
 
-      <OptionsButton />
+      
+      { optionsOpen ? 
+        <div className='bg-linear-to-b from-[#321234] to-[#140D2B] absolute right-0 bottom-0 rounded-l-md rounded-t-md pt-15 pb-20 px-15 z-20'>
+        <ul className='flex flex-col gap-8'>
+          <li className='flex gap-3'><img className='max-h-[28px]' src={assets.checkmark} alt="" /><p className='text-lg'>Mark complete</p></li>
+          <hr/>
+          <li className='flex gap-3'><img className='max-h-[28px]' src={assets.clock_white} /> <p className='text-lg'>Change due date</p></li>
+          <hr />
+        </ul>
+  
+        <img onClick={ () => setOptionsOpen(false)} className='absolute bottom-5 right-5' src={assets.close} alt="" />
+      </div>
+      : null}
+      
+      
+      <div onClick={ () => setOptionsOpen(true)} className='bg-linear-to-b from-[#FF0036] to-[#321234] p-4 rounded-full outline-2 outline-[#FF0036] absolute bottom-5 right-5 z-10'>
+            <img width={50} src={assets.options} alt="" />
+      </div>
     </div>
   );
 };
