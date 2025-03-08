@@ -91,3 +91,45 @@ export const projects = [
     duedate: "",
   },
 ]
+
+
+export const commissionTypes = [
+  {
+    _id: 1,
+    label: "Headshot",
+    value: 70
+  },
+  {
+    _id: 2,
+    label: "Sketch",
+    value: 40
+  },
+  {
+    _id: 3,
+    label: "Flat colors",
+    value: 80
+  },
+  {
+    _id: 1,
+    label: "Shaded",
+    value: 120
+  },
+  {
+    _id: 1,
+    label: "Shaded with background",
+    value: 160
+  },
+]
+
+export const commissionFees = [
+  {
+    _id: 1,
+    label: "Written reference",
+    value: 30
+  },
+  {
+    _id: 2,
+    label: "Complex character",
+    value: 20
+  }
+]

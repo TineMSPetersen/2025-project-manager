@@ -10,7 +10,7 @@ const Project = () => {
 
   console.log(projectInfo);
   return (
-    <div className="px-20 py-10">
+    <div>
       {projectInfo ? (
         <div className="flex flex-col gap-10">
           <div className="flex justify-between">

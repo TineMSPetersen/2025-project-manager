@@ -14,7 +14,7 @@ const Sidebar = () => {
             <li>Calendar</li>
           </ul>
           <ul>
-            <li>Price calculator</li>
+          <NavLink to={'/pricecalculator'}><li>Price calculator</li></NavLink>
           </ul>
         </div>
       </div>

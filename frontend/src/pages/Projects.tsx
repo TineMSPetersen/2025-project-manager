@@ -7,7 +7,7 @@ const Projects = () => {
 
   return (
     <>
-      <div className="grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-10 text-white p-20">
+      <div className="grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-10 text-white">
         {
           projects.map((item) => (
             <NavLink to={`/project/${item._id}`}>
