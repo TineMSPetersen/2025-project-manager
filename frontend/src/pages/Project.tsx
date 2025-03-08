@@ -1,7 +1,5 @@
 import { useParams } from "react-router-dom";
 import { assets, projects } from "../assets/assets";
-import OptionsButton from "../components/OptionsButton";
-import OptionsMenu from "../components/OptionsMenu";
 import { useState } from "react";
 
 const Project = () => {
