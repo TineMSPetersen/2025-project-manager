@@ -5,10 +5,15 @@ import Sidebar from "./components/Sidebar"
 import Project from "./pages/Project"
 import PriceCalculator from "./pages/PriceCalculator"
 import NewProject from "./pages/NewProject"
+import Login from "./auth_pages/Login"
 
 const App = () => {
+  const isLoggedIn = false;
+
   return (
-    <div className="bg-black w-full h-screen text-white grid grid-cols-[1fr_5fr]">
+    <>
+    { isLoggedIn ?
+      <div className="bg-black w-full h-screen text-white grid grid-cols-[1fr_5fr]">
       <Sidebar />
       <div className="px-20 py-10">
       <Routes>
@@ -19,7 +24,12 @@ const App = () => {
         <Route path="/newproject" element={ <NewProject />} />
       </Routes>
       </div>
-    </div>
+
+      <Routes>
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    </div> : <Login /> }
+    </>
   )
 }
 

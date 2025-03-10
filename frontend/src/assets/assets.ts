@@ -26,6 +26,7 @@ import options from './options.png'
 import checkmark from './checkmark.png'
 import clock_white from './clock_white.png'
 import close from './close.png'
+import checkmark_black from './checkmark_black.png'
 
 
 export const assets = {
@@ -38,7 +39,7 @@ export const assets = {
   email,
   phone,
   options,
-  checkmark, clock_white, close
+  checkmark, clock_white, close, checkmark_black
 }
 
 export const projects = [

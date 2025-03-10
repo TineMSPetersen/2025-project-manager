@@ -5,6 +5,8 @@ import { useState } from "react";
 const Project = () => {
   const { projectId } = useParams();
   const [ optionsOpen, setOptionsOpen ] = useState(false);
+  const [ completeOpen, setCompleteOpen ] = useState(false);
+  const [ dueDateOpen, setDueDateOpen ] = useState(false);
 
   const projectInfo = projects.find((project) => project._id === projectId);
 
@@ -30,7 +32,7 @@ const Project = () => {
                   </div>
                 )}
                 {projectInfo.duedate != "" ? (
-                  <div className="bg-[#FFFD7C] text-black w-fit px-3 py-2 text-xl flex gap-2 items-center">
+                  <div onClick={() => setDueDateOpen(true)} className="bg-[#FFFD7C] text-black w-fit px-3 py-2 text-xl flex gap-2 items-center">
                     <img
                       className="max-w-[70%] max-h-[70%] object-contain"
                       src={assets.clock}
@@ -91,9 +93,9 @@ const Project = () => {
       { optionsOpen ? 
         <div className='bg-linear-to-b from-[#321234] to-[#140D2B] absolute right-0 bottom-0 rounded-l-md rounded-t-md pt-15 pb-20 px-15 z-20'>
         <ul className='flex flex-col gap-8'>
-          <li className='flex gap-3'><img className='max-h-[28px]' src={assets.checkmark} alt="" /><p className='text-lg'>Mark complete</p></li>
+          <li onClick={() => {setCompleteOpen(true); setOptionsOpen(false); setDueDateOpen(false)}} className='flex gap-3'><img className='max-h-[28px]' src={assets.checkmark} alt="" /><p className='text-lg'>Mark complete</p></li>
           <hr/>
-          <li className='flex gap-3'><img className='max-h-[28px]' src={assets.clock_white} /> <p className='text-lg'>Change due date</p></li>
+          <li onClick={() => {setCompleteOpen(false); setOptionsOpen(false); setDueDateOpen(true)}} className='flex gap-3'><img className='max-h-[28px]' src={assets.clock_white} /> <p className='text-lg'>Change due date</p></li>
           <hr />
         </ul>
   
@@ -105,6 +107,63 @@ const Project = () => {
       <div onClick={ () => setOptionsOpen(true)} className='bg-linear-to-b from-[#FF0036] to-[#321234] p-4 rounded-full outline-2 outline-[#FF0036] absolute bottom-5 right-5 z-10'>
             <img width={50} src={assets.options} alt="" />
       </div>
+
+      { completeOpen ? 
+      <div className="bg-gradient-to-b from-[#321234] to-[#140D2B] absolute m-auto left-0 right-0 z-30 p-10 min-w-[400px] max-w-[600px] top-[30%] text-center rounded-md">
+            <div className="relative">
+              <img onClick={() => setCompleteOpen(false)} src={assets.close} className="w-5 h-5 absolute right-0 top-0" />
+            </div>
+            <div className="flex flex-col gap-5 items-center">
+              <p className="text-2xl">Mark complete</p>
+              <p>
+                Here you can change the due date to another time in the calendar.
+              </p>
+              <div>
+                <p className="mb-2">Is the project complete?</p>
+                <button onClick={() => setCompleteOpen(false)} className="bg-[#BBF491] rounded-md text-black py-2 px-5 flex gap-2 items-center justify-center">
+                  <img className="h-5" src={assets.checkmark_black} />
+                  <p>Yes, mark as complete</p>
+                </button>
+              </div>
+            </div>
+          </div>
+      : null }
+
+      { dueDateOpen ? 
+      <div className="bg-gradient-to-b from-[#321234] to-[#140D2B] absolute m-auto left-0 right-0 z-30 p-10 min-w-[400px] max-w-[600px] top-[30%] text-center rounded-md">
+            <div className="relative">
+              <img onClick={() => setDueDateOpen(false)} src={assets.close} className="w-5 h-5 absolute right-0 top-0" />
+            </div>
+            <div className="flex flex-col gap-5 items-center">
+              <p className="text-2xl">Change Due Date</p>
+              <p>
+                This will mark the project as complete, and remove it from the
+                "Projects" tab and the calendar.
+              </p>
+              <div>
+                <form className="flex flex-col items-center gap-5">
+                  <label htmlFor="projectduedate" className="text-xl">
+                Project Due Date:
+                  <input
+                  className="text-base block mt-2"
+                  type="date"
+                  name="due date"
+                  id="due date"
+                  />
+                </label>
+                  <div>
+                  <p className="mb-2">Is the project complete?</p>
+                  <button onClick={() => setDueDateOpen(false)} className="bg-[#BBF491] rounded-md text-black py-2 px-5 flex gap-2 items-center justify-center">
+                    <img className="h-5" src={assets.clock} />
+                  <p>Change due date</p>
+                  </button>
+                </div>
+                </form>
+                
+              </div>
+            </div>
+          </div>
+      : null }
     </div>
   );
 };
