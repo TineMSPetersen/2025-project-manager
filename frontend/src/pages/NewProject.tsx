@@ -66,7 +66,7 @@ const NewProject = () => {
                 />
               </label>
 
-              <label htmlFor="projectprice" className="text-xl">
+              <label htmlFor="projectduedate" className="text-xl">
                 Project Due Date:
                 <input
                   className="text-base block mt-2"
