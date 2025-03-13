@@ -6,9 +6,10 @@ import Project from "./pages/Project"
 import PriceCalculator from "./pages/PriceCalculator"
 import NewProject from "./pages/NewProject"
 import Login from "./auth_pages/Login"
+import Calendar from "./pages/Calendar"
 
 const App = () => {
-  const isLoggedIn = false;
+  const isLoggedIn = true;
 
   return (
     <>
@@ -22,6 +23,7 @@ const App = () => {
         <Route path="/project/:projectId" element={ <Project />} />
         <Route path="/pricecalculator" element={ <PriceCalculator /> } />
         <Route path="/newproject" element={ <NewProject />} />
+        <Route path="/calendar" element={<Calendar />} />
       </Routes>
       </div>
 
