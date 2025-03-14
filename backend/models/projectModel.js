@@ -15,6 +15,6 @@ const projectSchema = new mongoose.Schema({
   duedate: { type: Number, required: true }
 })
 
-const projectModel = mongoose.models.project || mongoose.model("Project", projectSchema)
+const projectModel = mongoose.models.project || mongoose.model("project", projectSchema)
 
 export default projectModel;
