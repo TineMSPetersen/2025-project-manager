@@ -5,7 +5,7 @@ import { AppContext } from "../context/AppContext";
 
 const Login = () => {
   const [state, setState] = useState("Login");
-  const { backendUrl, token, setToken } = useContext(AppContext)
+  const { backendUrl, token, setToken, navigate } = useContext(AppContext)
 
   const [ first_name, setFirst_name ] = useState('')
   const [ last_name, setLast_name ] = useState('')
@@ -22,6 +22,17 @@ const Login = () => {
         if (response.data.success) {
           setToken(response.data.token)
           localStorage.setItem('token', response.data.token)
+          navigate('/')
+        } else {
+          console.error(response.data.message)
+        }
+      } else {
+        const response = await axios.post(backendUrl + '/api/user/loginuser', {email, password})
+
+        if (response.data.success) {
+          setToken(response.data.token)
+          localStorage.setItem('token', response.data.token)
+          navigate('/')
         } else {
           console.error(response.data.message)
         }
@@ -39,11 +50,13 @@ const Login = () => {
         <img src={assets.logo} className="w-50" />
 
         {state === "Login" ? (
-  <form className="flex flex-col gap-10 w-full">
+  <form onSubmit={onSubmitHandler} className="flex flex-col gap-10 w-full">
     <div className="flex flex-col gap-5 w-full">
       <label htmlFor="email" className="text-xl flex flex-col items-center w-full">
         Email:
         <input
+          onChange={ (e) => setEmail(e.target.value)}
+          value={email}
           className="outline-2 outline-[#FF0036] p-2 px-5 rounded-md text-base block mt-2 text-center w-full"
           id="email"
           type="email"
@@ -54,6 +67,8 @@ const Login = () => {
       <label htmlFor="password" className="text-xl flex flex-col items-center w-full">
         Password:
         <input
+          onChange={ (e) => setPassword(e.target.value)}
+          value={password}
           className="outline-2 outline-[#FF0036] p-2 px-5 rounded-md text-base block mt-2 text-center w-full"
           id="password"
           type="password"

@@ -8,7 +8,7 @@ import NewProject from "./pages/NewProject"
 import Login from "./auth_pages/Login"
 
 const App = () => {
-  const isLoggedIn = false;
+  const isLoggedIn = true;
 
   return (
     <>
@@ -22,11 +22,12 @@ const App = () => {
         <Route path="/project/:projectId" element={ <Project />} />
         <Route path="/pricecalculator" element={ <PriceCalculator /> } />
         <Route path="/newproject" element={ <NewProject />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
       </div>
 
       <Routes>
-        <Route path="/login" element={<Login />} />
+        
       </Routes>
     </div> : <Login /> }
     </>
