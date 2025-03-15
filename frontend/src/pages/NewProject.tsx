@@ -17,9 +17,13 @@ const NewProject = () => {
   const [ customer_phone, setCustomer_phone ] = useState('')
   const [ project_name, setProject_name ] = useState('')
   const [ description, setDescription ] = useState('')
-  const [ notes, setNotes ] = useState(["note1", "note2"])
+  const [ notes, setNotes ] = useState('')
   const [ amount_paid, setAmount_paid ] = useState('')
   const [ duedate, setDuedate ] = useState('')
+
+  const parseNotes = (input: string): string[] => {
+    return input.split(';').map(note => note.trim()).filter(note => note.length > 0);
+  }
 
   const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -34,7 +38,7 @@ const NewProject = () => {
       formData.append("description", description)
       formData.append("amount_paid", amount_paid)
       formData.append("duedate", duedate)
-      formData.append("notes", JSON.stringify(notes))
+      formData.append("notes", JSON.stringify(parseNotes(notes)))
 
       // Check if image is selected before appending
       if (image1) formData.append("image1", image1);
@@ -163,6 +167,18 @@ const NewProject = () => {
                 name="projectdescription"
                 id="projectdescription"
                 placeholder="Lorem ipsum dolor sit amed..."
+              ></textarea>
+            </label>
+
+            <label htmlFor="projectnotes" className="text-xl">
+              Important notes:
+              <p className="text-xs">Seperate each note by ';'</p>
+              <textarea
+                onChange={(e) => setNotes(e.target.value)}
+                className="text-base block mt-2 w-full"
+                name="projectnotes"
+                id="projectnotes"
+                placeholder="Note 1; Note 2; Note 3;"
               ></textarea>
             </label>
           </div>
