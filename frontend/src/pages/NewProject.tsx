@@ -46,7 +46,7 @@ const NewProject = () => {
       
       console.log("Here works")
       const response = await axios.post(backendUrl + "/api/project/new",
-        formData
+        formData, { headers: { token }}
       );
       
       console.log("Here no work")

@@ -4,7 +4,7 @@ import projectModel from '../models/projectModel.js';
 const addProject = async ( req, res ) => {
   try {
 
-    const { project_name, customer_name, customer_email, customer_phone, description, notes, amount_paid, duedate } = req.body;
+    const { project_name, customer_name, customer_email, customer_phone, description, notes, amount_paid, duedate, userId } = req.body;
 
     const image1 = req.files.image1 && req.files.image1[0]
     const image2 = req.files.image2 && req.files.image2[0]
@@ -23,7 +23,7 @@ const addProject = async ( req, res ) => {
     )
 
     const projectData = {
-      userId: '1234',
+      userId,
       project_name,
       customer_name,
       customer_email,
