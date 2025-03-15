@@ -1,0 +1,9 @@
+import express from 'express'
+import { addProject } from '../controllers/projectController.js';
+import upload from '../middleware/multer.js';
+
+const projectRouter = express.Router();
+
+projectRouter.post('/new', upload.fields([{name: 'image1', maxCount: 1}, {name: 'image2', maxCount: 2}, {name: 'image3', maxCount: 3}, {name: 'image4', maxCount: 4}, {name: 'image5', maxCount: 5}]), addProject)
+
+export default projectRouter
