@@ -89,4 +89,16 @@ const markComplete = async ( req, res ) => {
   }
 }
 
-export { addProject, getProjects, getSingleProject, markComplete }
+const changeDueDate = async ( req, res ) => {
+  const { projectId, newDueDate } = req.body;
+  
+  try {
+    await projectModel.findByIdAndUpdate(projectId, { duedate: Date.parse(newDueDate) }, { new: true });
+    res.json({ success: true, message: "Due date has been updated!"})
+  } catch (error) {
+    console.log(error)
+    res.json({ success: false, message: error.message})
+  }
+}
+
+export { addProject, getProjects, getSingleProject, markComplete, changeDueDate }

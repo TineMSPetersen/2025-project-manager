@@ -1,5 +1,5 @@
 import express from 'express'
-import { addProject, getProjects, getSingleProject, markComplete } from '../controllers/projectController.js';
+import { addProject, changeDueDate, getProjects, getSingleProject, markComplete } from '../controllers/projectController.js';
 import upload from '../middleware/multer.js';
 import authUser from '../middleware/auth.js';
 
@@ -10,3 +10,4 @@ projectRouter.post('/list', authUser, getProjects)
 projectRouter.post('/singleproject', authUser, getSingleProject)
 export default projectRouter
 projectRouter.post('/markcomplete', authUser, markComplete)
+projectRouter.post('/changeduedate', authUser, changeDueDate)

@@ -27,6 +27,8 @@ const Project = () => {
   const [completeOpen, setCompleteOpen] = useState(false);
   const [dueDateOpen, setDueDateOpen] = useState(false);
 
+  const [ newDueDate, setNewDueDate ] = useState('');
+
   const fetchProjectInfo = async () => {
     try {
       const response = await axios.post(
@@ -62,11 +64,29 @@ const Project = () => {
           },
         })
 
-        if (!response.data.success) {
-          console.log(response.data.message);
-        }
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  const changeProjectDueDate = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    
+    try {
+      const response = await axios.post(backendUrl + '/api/project/changeduedate', { projectId, newDueDate}, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+
+      if (response.data.success) {
+        setDueDateOpen(false)
+        fetchProjectInfo()
+      }  
+
+    } catch (error) {
+      console.log(error)
+      console.log("check 4")
     }
   }
 
@@ -247,10 +267,12 @@ const Project = () => {
               "Projects" tab and the calendar.
             </p>
             <div>
-              <form className="flex flex-col items-center gap-5">
+              <form onSubmit={changeProjectDueDate} className="flex flex-col items-center gap-5">
                 <label htmlFor="projectduedate" className="text-xl">
                   Project Due Date:
                   <input
+                    onChange={(e) => setNewDueDate(e.target.value)}
+                    value={newDueDate}
                     className="text-base block mt-2"
                     type="date"
                     name="due date"
@@ -260,7 +282,7 @@ const Project = () => {
                 <div>
                   <p className="mb-2">Is the project complete?</p>
                   <button
-                    onClick={() => setDueDateOpen(false)}
+                    type="submit"
                     className="bg-[#BBF491] rounded-md text-black py-2 px-5 flex gap-2 items-center justify-center"
                   >
                     <img className="h-5" src={assets.clock} />
