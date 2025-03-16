@@ -1,8 +1,22 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import { AppContext } from '../context/AppContext';
+import axios from 'axios';
 
 const PriceSettings = () => {
+  const { backendUrl, token } = useContext(AppContext);
+
   const [label, setLabel] = useState('')
   const [value, setValue] = useState(0);
+
+  const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      
+    } catch (error) {
+      
+    }
+  }
 
   return (
     <div>
