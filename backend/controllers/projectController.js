@@ -79,4 +79,14 @@ const getSingleProject = async ( req, res ) => {
   }
 }
 
-export { addProject, getProjects, getSingleProject }
+const markComplete = async ( req, res ) => {
+  try {
+    await projectModel.findByIdAndUpdate(req.body.projectId, {complete: true});
+    res.json({ success: true, message: "Project marked complete"})
+  } catch( error ) {
+    console.log(error)
+    res.json({ success: false, message: error.message})
+  }
+}
+
+export { addProject, getProjects, getSingleProject, markComplete }

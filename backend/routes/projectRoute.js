@@ -1,5 +1,5 @@
 import express from 'express'
-import { addProject, getProjects, getSingleProject } from '../controllers/projectController.js';
+import { addProject, getProjects, getSingleProject, markComplete } from '../controllers/projectController.js';
 import upload from '../middleware/multer.js';
 import authUser from '../middleware/auth.js';
 
@@ -9,3 +9,4 @@ projectRouter.post('/new', upload.fields([{name: 'image1', maxCount: 1}, {name: 
 projectRouter.post('/list', authUser, getProjects)
 projectRouter.post('/singleproject', authUser, getSingleProject)
 export default projectRouter
+projectRouter.post('/markcomplete', authUser, markComplete)

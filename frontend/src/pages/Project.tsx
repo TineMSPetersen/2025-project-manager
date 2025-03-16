@@ -40,7 +40,6 @@ const Project = () => {
       );
 
       if (response.data.success) {
-        console.log(response.data);
         setProjectData(response.data.project);
       } else {
         console.log(response.data.message);
@@ -54,8 +53,22 @@ const Project = () => {
     fetchProjectInfo();
   }, []);
 
-  console.log("vvv");
-  console.log(projectData);
+  const markProjectComplete = async () => {
+    try {
+      const response = await axios.post(backendUrl + '/api/project/markcomplete', { projectId },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+
+        if (!response.data.success) {
+          console.log(response.data.message);
+        }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div>
@@ -207,7 +220,7 @@ const Project = () => {
             <div>
               <p className="mb-2">Is the project complete?</p>
               <button
-                onClick={() => setCompleteOpen(false)}
+                onClick={() => {setCompleteOpen(false); markProjectComplete()}}
                 className="bg-[#BBF491] rounded-md text-black py-2 px-5 flex gap-2 items-center justify-center"
               >
                 <img className="h-5" src={assets.checkmark_black} />
