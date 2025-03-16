@@ -1,13 +1,27 @@
 import { useParams } from "react-router-dom";
-import { assets, projects } from "../assets/assets";
+import { assets } from "../assets/assets";
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../context/AppContext";
 import axios from "axios";
 
 const Project = () => {
+  interface Project {
+    _id: string;
+    project_name: string;
+    customer_name: string;
+    customer_email: string;
+    customer_phone: string;
+    description: string;
+    notes: string[];
+    paid: boolean;
+    duedate: string;
+    images: string[];
+    amount_paid: number;
+  }
+  
   const { backendUrl, token } = useContext(AppContext);
   const { projectId } = useParams();
-  const [projectData, setProjectData] = useState([]);
+  const [projectData, setProjectData] = useState<Project | null>(null);
 
   const [optionsOpen, setOptionsOpen] = useState(false);
   const [completeOpen, setCompleteOpen] = useState(false);
@@ -42,7 +56,7 @@ const Project = () => {
 
   console.log("vvv");
   console.log(projectData);
-  const projectInfo = projects.find((project) => project._id === "1");
+
   return (
     <div>
       {projectData ? (
@@ -97,7 +111,7 @@ const Project = () => {
                 )}
                 {projectData.customer_phone ? (
                   <div className="flex gap-2 items-center">
-                    <p>{projectInfo.customer_phone}</p>
+                    <p>{projectData.customer_phone}</p>
                     <img
                       className="max-w-[50%] max-h-[60%]"
                       src={assets.phone}
