@@ -50,4 +50,21 @@ const addProject = async ( req, res ) => {
   }
 }
 
-export { addProject }
+const getProjects = async ( req, res ) => {
+  const { userId } = req.body;
+
+  try {
+    const projectsData = await projectModel.find({ userId: userId });
+
+    if (projectsData.length === 0) {
+      return res.json({ success: false, message: "No projects found for this user." });
+    }
+
+    res.json({ success: true, projectsData})
+  } catch (error) {
+    console.log(error)
+    res.json({ success: false, message: error.message})
+  }
+}
+
+export { addProject, getProjects }

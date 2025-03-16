@@ -50,8 +50,14 @@ const NewProject = () => {
       
       console.log("Here works")
       const response = await axios.post(backendUrl + "/api/project/new",
-        formData, { headers: { token }}
+        formData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
+        }
       );
+
+      
       
       console.log("Here no work")
 
