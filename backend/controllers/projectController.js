@@ -67,4 +67,16 @@ const getProjects = async ( req, res ) => {
   }
 }
 
-export { addProject, getProjects }
+const getSingleProject = async ( req, res ) => {
+  const { userId, projectId } = req.body;
+
+  try {
+    const project = await projectModel.findOne({_id: projectId, userId: userId});
+    res.json({ success: true, project})
+  } catch (error) {
+    console.log(error)
+    res.json({ success: false, message: error.message})
+  }
+}
+
+export { addProject, getProjects, getSingleProject }
