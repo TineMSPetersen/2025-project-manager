@@ -1,9 +1,10 @@
 import express from 'express'
-import { AddCommissionType } from '../controllers/commissionController.js'
+import { AddCommissionType, GetCommissionInfo } from '../controllers/commissionController.js'
 import authUser from '../middleware/auth.js'
 
-const commissiontypeRouter = express.Router()
+const commissionRouter = express.Router()
 
-commissiontypeRouter.post('/newtype', authUser, AddCommissionType)
+commissionRouter.post('/newtype', authUser, AddCommissionType)
+commissionRouter.post('/get', authUser, GetCommissionInfo)
 
-export default commissiontypeRouter;
+export default commissionRouter;

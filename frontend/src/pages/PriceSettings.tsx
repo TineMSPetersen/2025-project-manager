@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../context/AppContext";
 import axios from "axios";
 
@@ -7,6 +7,36 @@ const PriceSettings = () => {
 
   const [label, setLabel] = useState("");
   const [value, setValue] = useState(0);
+
+  const [ commissionInfo, setCommissionInfo ] = useState([])
+
+  const fetchCommissionInfo = async () => {
+    try {
+      const response = await axios.post(
+        backendUrl + "/api/commission/get",
+        {}, // No need to send userId manually anymore
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.data.success) {
+        const info = response.data.commissionData.commission_info || [];
+        setCommissionInfo(info);
+      } else {
+        console.log(response.data.message);
+      }
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect( () => {
+    fetchCommissionInfo();
+  }, [])
 
   const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

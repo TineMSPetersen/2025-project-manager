@@ -32,4 +32,20 @@ const AddCommissionType = async (req, res) => {
   }
 };
 
-export { AddCommissionType };
+const GetCommissionInfo = async (req, res) => {
+  try {
+    const { userId } = req.body;
+
+    const commissionData = await userModel.findOne(
+      { _id: userId },
+      { commission_info: 1 }
+    );
+
+    res.json({ success: true, commissionData });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
+
+export { AddCommissionType, GetCommissionInfo };

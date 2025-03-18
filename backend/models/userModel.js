@@ -6,10 +6,9 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true },
   password: { type: String, required: true },
   commission_info: {
-    type: {
-      types: { type: Array, default: [] }
-    },
-    default: {}
+    currency: { type: String, default: "USD" },
+    types: { type: Array, default: [] },
+    fees: { type: Array, default: [] }
   }
 }, { 
   minimize: false, 
