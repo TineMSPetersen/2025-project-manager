@@ -5,7 +5,7 @@ import cors from 'cors'
 import userRouter from './routes/userRoute.js';
 import projectRouter from './routes/projectRoute.js';
 import connectCloudinary from './config/cloudinary.js';
-import commissiontypeRouter from './routes/commissionTypeRoute.js';
+import commissionRouter from './routes/commissionRoute.js';
 
 
 
@@ -22,6 +22,6 @@ app.use(cors())
 // API endpoints
 app.use('/api/user', userRouter)
 app.use('/api/project', projectRouter)
-app.use('/api/commissiontype', commissiontypeRouter)
+app.use('/api/commission', commissionRouter)
 
 app.listen(port, () => console.log("Server started on Port : " + port));
