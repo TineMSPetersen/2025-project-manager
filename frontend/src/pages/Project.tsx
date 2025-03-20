@@ -57,7 +57,7 @@ const Project = () => {
 
   const markProjectComplete = async () => {
     try {
-      const response = await axios.post(backendUrl + '/api/project/markcomplete', { projectId },
+      await axios.post(backendUrl + '/api/project/markcomplete', { projectId },
         {
           headers: {
             Authorization: `Bearer ${token}`,

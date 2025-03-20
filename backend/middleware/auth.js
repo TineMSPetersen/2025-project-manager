@@ -2,8 +2,6 @@ import jwt from 'jsonwebtoken'
 
 const authUser = async (req, res, next) => {
   const authHeader = req.headers.authorization;
-
-  console.log('Authorization Header:', req.headers.authorization);
   
   if (!authHeader) {
     return res.json({ success: false, message: "Not authorized. Log in again" });
