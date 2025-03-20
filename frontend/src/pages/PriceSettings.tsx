@@ -56,6 +56,11 @@ const PriceSettings = () => {
           },
         }
       );
+
+      setTypeLabel("")
+      setTypeValue(0)
+      setExtrachar(0)
+      fetchCommissionInfo();
     } catch (error) {
       console.log(error);
     }
@@ -74,6 +79,11 @@ const PriceSettings = () => {
           },
         }
       );
+
+      fetchCommissionInfo();
+      setFeeLabel("")
+      setFeeValue(0)
+      setFeeType("flat")
     } catch (error) {
       console.log(error);
     }
