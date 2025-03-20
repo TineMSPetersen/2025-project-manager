@@ -43,7 +43,16 @@ const PriceCalculator = () => {
     fetchCommissionInfo();
   }, []);
 
-  const onSubmitHandler = (e) => {
+  useEffect(() => {
+    const calculateFees = () => {
+      return feePrices.reduce((acc, val) => acc + val, 0);
+    };
+  
+    const total = typePrice + ((characterAmount - 1) * addCharaterPrice) + calculateFees();
+    setQuote(total);
+  }, [typePrice, characterAmount, addCharaterPrice, feePrices]);
+
+  /* const onSubmitHandler = (e) => {
     e.preventDefault();
   
     const calculateFees = () => {
@@ -52,12 +61,12 @@ const PriceCalculator = () => {
   
     const total = typePrice + ((characterAmount - 1) * addCharaterPrice) + calculateFees();
     setQuote(total);
-  };
+  }; */
 
   return (
     <div>
       <h1 className="text-5xl mb-15">Price Calculator</h1>
-      <form onSubmit={onSubmitHandler} className="flex flex-col gap-10">
+      <form className="flex flex-col gap-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           <div>
             <p className="text-2xl mb-5">Commission Type:</p>
@@ -99,7 +108,7 @@ const PriceCalculator = () => {
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           <div>
-            <p className="text-2xl mb-5">Commission Type:</p>
+            <p className="text-2xl mb-5">Extra Fees:</p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {commissionInfo.fees &&
@@ -127,12 +136,6 @@ const PriceCalculator = () => {
                 ))}
             </div>
           </div>
-        </div>
-
-        <div className="flex flex-col items-center">
-          <button className="mt-20 bg-linear-to-b from-[#FF0036] to-[#321234] w-[300px] py-4 rounded-xl outline-2 outline-[#FF0036]">
-            Get Price Quote
-          </button>
         </div>
       </form>
 
