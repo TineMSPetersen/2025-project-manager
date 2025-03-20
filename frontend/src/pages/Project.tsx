@@ -3,31 +3,18 @@ import { assets } from "../assets/assets";
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../context/AppContext";
 import axios from "axios";
+import { IProject } from "../types";
 
 const Project = () => {
-  interface Project {
-    _id: string;
-    project_name: string;
-    customer_name: string;
-    customer_email: string;
-    customer_phone: string;
-    description: string;
-    notes: string[];
-    paid: boolean;
-    duedate: string;
-    images: string[];
-    amount_paid: number;
-  }
-  
   const { backendUrl, token } = useContext(AppContext);
   const { projectId } = useParams();
-  const [projectData, setProjectData] = useState<Project | null>(null);
+  const [projectData, setProjectData] = useState<IProject | null>(null);
 
   const [optionsOpen, setOptionsOpen] = useState(false);
   const [completeOpen, setCompleteOpen] = useState(false);
   const [dueDateOpen, setDueDateOpen] = useState(false);
 
-  const [ newDueDate, setNewDueDate ] = useState('');
+  const [newDueDate, setNewDueDate] = useState("");
 
   const fetchProjectInfo = async () => {
     try {
@@ -57,38 +44,42 @@ const Project = () => {
 
   const markProjectComplete = async () => {
     try {
-      await axios.post(backendUrl + '/api/project/markcomplete', { projectId },
+      await axios.post(
+        backendUrl + "/api/project/markcomplete",
+        { projectId },
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        })
-
+        }
+      );
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const changeProjectDueDate = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+
     try {
-      const response = await axios.post(backendUrl + '/api/project/changeduedate', { projectId, newDueDate}, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      const response = await axios.post(
+        backendUrl + "/api/project/changeduedate",
+        { projectId, newDueDate },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (response.data.success) {
-        setDueDateOpen(false)
-        fetchProjectInfo()
-      }  
-
+        setDueDateOpen(false);
+        fetchProjectInfo();
+      }
     } catch (error) {
-      console.log(error)
-      console.log("check 4")
+      console.log(error);
     }
-  }
+  };
 
   return (
     <div>
@@ -139,9 +130,7 @@ const Project = () => {
                       src={assets.email}
                     />
                   </div>
-                ) : (
-                  null
-                )}
+                ) : null}
                 {projectData.customer_phone ? (
                   <div className="flex gap-2 items-center">
                     <p>{projectData.customer_phone}</p>
@@ -150,17 +139,16 @@ const Project = () => {
                       src={assets.phone}
                     />
                   </div>
-                ) : (
-                  null
-                )}
+                ) : null}
               </div>
             </div>
           </div>
           <div className="flex">
-          {projectData && projectData.images ? projectData.images.map((item) => (
-              <img className="max-h-[200px]" src={item} />
-            ))
-            : null }
+            {projectData && projectData.images
+              ? projectData.images.map((item) => (
+                  <img className="max-h-[200px]" src={item} />
+                ))
+              : null}
           </div>
 
           <p>{projectData.description}</p>
@@ -168,9 +156,9 @@ const Project = () => {
           <div>
             <p className="text-2xl mb-2">Important Notes</p>
             <ul className="list-disc flex flex-col gap-2">
-            {projectData && projectData.notes ? projectData.notes.map((item) => (
-                <li>{item}</li>
-              )) : null }
+              {projectData && projectData.notes
+                ? projectData.notes.map((item) => <li>{item}</li>)
+                : null}
             </ul>
           </div>
         </div>
@@ -240,7 +228,10 @@ const Project = () => {
             <div>
               <p className="mb-2">Is the project complete?</p>
               <button
-                onClick={() => {setCompleteOpen(false); markProjectComplete()}}
+                onClick={() => {
+                  setCompleteOpen(false);
+                  markProjectComplete();
+                }}
                 className="bg-[#BBF491] rounded-md text-black py-2 px-5 flex gap-2 items-center justify-center"
               >
                 <img className="h-5" src={assets.checkmark_black} />
@@ -267,7 +258,10 @@ const Project = () => {
               "Projects" tab and the calendar.
             </p>
             <div>
-              <form onSubmit={changeProjectDueDate} className="flex flex-col items-center gap-5">
+              <form
+                onSubmit={changeProjectDueDate}
+                className="flex flex-col items-center gap-5"
+              >
                 <label htmlFor="projectduedate" className="text-xl">
                   Project Due Date:
                   <input

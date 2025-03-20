@@ -1,19 +1,24 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../context/AppContext";
 import axios from "axios";
+import { ICommissionInfo } from "../types";
 
 const PriceSettings = () => {
   const { backendUrl, token } = useContext(AppContext);
 
   const [typeLabel, setTypeLabel] = useState("");
   const [typeValue, setTypeValue] = useState(0);
-  const [ extrachar, setExtrachar ] = useState(0);
+  const [extrachar, setExtrachar] = useState(0);
 
   const [feeLabel, setFeeLabel] = useState("");
   const [feeValue, setFeeValue] = useState(0);
   const [feeType, setFeeType] = useState("flat");
 
-  const [commissionInfo, setCommissionInfo] = useState([]);
+  const [commissionInfo, setCommissionInfo] = useState<ICommissionInfo>({
+    types: [],
+    fees: [],
+    currency: "USD",
+  });
 
   const fetchCommissionInfo = async () => {
     try {
@@ -30,7 +35,6 @@ const PriceSettings = () => {
       if (response.data.success) {
         const info = response.data.commissionData.commission_info || [];
         setCommissionInfo(info);
-        console.log(commissionInfo);
       } else {
         console.log(response.data.message);
       }
@@ -57,9 +61,9 @@ const PriceSettings = () => {
         }
       );
 
-      setTypeLabel("")
-      setTypeValue(0)
-      setExtrachar(0)
+      setTypeLabel("");
+      setTypeValue(0);
+      setExtrachar(0);
       fetchCommissionInfo();
     } catch (error) {
       console.log(error);
@@ -81,9 +85,9 @@ const PriceSettings = () => {
       );
 
       fetchCommissionInfo();
-      setFeeLabel("")
-      setFeeValue(0)
-      setFeeType("flat")
+      setFeeLabel("");
+      setFeeValue(0);
+      setFeeType("flat");
     } catch (error) {
       console.log(error);
     }
@@ -123,7 +127,7 @@ const PriceSettings = () => {
             <label className="text-xl" htmlFor="value">
               Price:
               <input
-                onChange={(e) => setTypeValue(e.target.value)}
+                onChange={(e) => setTypeValue(Number(e.target.value) || 0)}
                 value={typeValue}
                 id="value"
                 className="block mt-2 text-base"
@@ -133,7 +137,7 @@ const PriceSettings = () => {
             <label className="text-xl" htmlFor="extrachar">
               Add character price:
               <input
-                onChange={(e) => setExtrachar(e.target.value)}
+                onChange={(e) => setExtrachar(Number(e.target.value) || 0)}
                 value={extrachar}
                 id="value"
                 className="block mt-2 text-base"
@@ -191,7 +195,7 @@ const PriceSettings = () => {
             <label className="text-xl" htmlFor="value">
               Price:
               <input
-                onChange={(e) => setFeeValue(e.target.value)}
+                onChange={(e) => setFeeValue(Number(e.target.value) || 0)}
                 value={feeValue}
                 id="value"
                 className="block mt-2 text-base"

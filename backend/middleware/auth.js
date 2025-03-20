@@ -1,16 +1,22 @@
-import jwt from 'jsonwebtoken'
+import jwt from "jsonwebtoken";
 
 const authUser = async (req, res, next) => {
   const authHeader = req.headers.authorization;
-  
+
   if (!authHeader) {
-    return res.json({ success: false, message: "Not authorized. Log in again" });
+    return res.json({
+      success: false,
+      message: "Not authorized. Log in again",
+    });
   }
 
-  const token = authHeader.split(' ')[1];  // Extract token from the "Bearer <token>" format
+  const token = authHeader.split(" ")[1]; // Extract token from the "Bearer <token>" format
 
   if (!token) {
-    return res.json({ success: false, message: "Not authorized. Log in again" });
+    return res.json({
+      success: false,
+      message: "Not authorized. Log in again",
+    });
   }
 
   try {

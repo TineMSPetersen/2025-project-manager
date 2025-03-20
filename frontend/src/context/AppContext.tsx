@@ -1,14 +1,8 @@
 import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { IAppContextType } from "../types";
 
-interface AppContextType {
-  backendUrl: string;
-  token: string;
-  setToken: (token: string) => void;
-  navigate: (path: string, options?: object) => void;
-}
-
-export const AppContext = createContext<AppContextType>({
+export const AppContext = createContext<IAppContextType>({
   backendUrl: "",
   token: "",
   setToken: () => {},
@@ -17,15 +11,16 @@ export const AppContext = createContext<AppContextType>({
 
 const AppContextProvider = (props: { children: React.ReactNode }) => {
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
-  const [token, setToken] = useState<string>(localStorage.getItem('token') || ''); // Retrieve token from localStorage
+  const [token, setToken] = useState<string>(
+    localStorage.getItem("token") || ""
+  );
   const navigate = useNavigate();
 
-  // Effect to update token in localStorage whenever it changes
   useEffect(() => {
     if (token) {
-      localStorage.setItem('token', token); // Persist token in localStorage
+      localStorage.setItem("token", token);
     }
-  }, [token]); // Only runs when token changes
+  }, [token]);
 
   const value = {
     backendUrl,
@@ -35,9 +30,7 @@ const AppContextProvider = (props: { children: React.ReactNode }) => {
   };
 
   return (
-    <AppContext.Provider value={value}>
-      {props.children}
-    </AppContext.Provider>
+    <AppContext.Provider value={value}>{props.children}</AppContext.Provider>
   );
 };
 

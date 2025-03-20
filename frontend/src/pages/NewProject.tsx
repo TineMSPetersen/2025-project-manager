@@ -4,7 +4,7 @@ import axios from "axios";
 import { AppContext } from "../context/AppContext";
 
 const NewProject = () => {
-  const { backendUrl, token, navigate } = useContext(AppContext)
+  const { backendUrl, token, navigate } = useContext(AppContext);
 
   const [image1, setImage1] = useState<File | null>(null);
   const [image2, setImage2] = useState<File | null>(null);
@@ -12,18 +12,21 @@ const NewProject = () => {
   const [image4, setImage4] = useState<File | null>(null);
   const [image5, setImage5] = useState<File | null>(null);
 
-  const [ customer_name, setCustomer_name ] = useState('')
-  const [ customer_email, setCustomer_email ] = useState('')
-  const [ customer_phone, setCustomer_phone ] = useState('')
-  const [ project_name, setProject_name ] = useState('')
-  const [ description, setDescription ] = useState('')
-  const [ notes, setNotes ] = useState('')
-  const [ amount_paid, setAmount_paid ] = useState('')
-  const [ duedate, setDuedate ] = useState('')
+  const [customer_name, setCustomer_name] = useState("");
+  const [customer_email, setCustomer_email] = useState("");
+  const [customer_phone, setCustomer_phone] = useState("");
+  const [project_name, setProject_name] = useState("");
+  const [description, setDescription] = useState("");
+  const [notes, setNotes] = useState("");
+  const [amount_paid, setAmount_paid] = useState("");
+  const [duedate, setDuedate] = useState("");
 
   const parseNotes = (input: string): string[] => {
-    return input.split(';').map(note => note.trim()).filter(note => note.length > 0);
-  }
+    return input
+      .split(";")
+      .map((note) => note.trim())
+      .filter((note) => note.length > 0);
+  };
 
   const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -34,11 +37,11 @@ const NewProject = () => {
       formData.append("customer_name", customer_name);
       formData.append("customer_email", customer_email);
       formData.append("customer_phone", customer_phone);
-      formData.append("project_name", project_name)
-      formData.append("description", description)
-      formData.append("amount_paid", amount_paid)
-      formData.append("duedate", duedate)
-      formData.append("notes", JSON.stringify(parseNotes(notes)))
+      formData.append("project_name", project_name);
+      formData.append("description", description);
+      formData.append("amount_paid", amount_paid);
+      formData.append("duedate", duedate);
+      formData.append("notes", JSON.stringify(parseNotes(notes)));
 
       // Check if image is selected before appending
       if (image1) formData.append("image1", image1);
@@ -47,34 +50,25 @@ const NewProject = () => {
       if (image4) formData.append("image4", image4);
       if (image5) formData.append("image5", image5);
 
-      
-      console.log("Here works")
-      const response = await axios.post(backendUrl + "/api/project/new",
-        formData, {
+      const response = await axios.post(
+        backendUrl + "/api/project/new",
+        formData,
+        {
           headers: {
             Authorization: `Bearer ${token}`,
-          }
+          },
         }
       );
 
-      
-      
-      console.log("Here no work")
-
       if (response.data.success) {
-        navigate('/projects')
-        
+        navigate("/projects");
       } else {
-        console.log(response.data.message)
+        console.log(response.data.message);
       }
-
-      
     } catch (error) {
-      console.log(error)
-      console.log("attempt caatch")
+      console.log(error);
     }
-  }
-
+  };
 
   return (
     <div>
@@ -194,98 +188,102 @@ const NewProject = () => {
           <p className="text-2xl mb-4">Upload image:</p>
           <div className="flex gap-2">
             <label htmlFor="image1">
-              <img 
-              className="w-20"
-              src={assets.upload_area}
-              alt="upload area" />
+              <img
+                className="w-20"
+                src={assets.upload_area}
+                alt="upload area"
+              />
               <input
-              onChange={(e) => {
-                if (e.target.files && e.target.files.length > 0) {
-                  setImage1(e.target.files[0]);
-                }
-              }}
-              type="file"
-              id="image1"
-              hidden
-            />
+                onChange={(e) => {
+                  if (e.target.files && e.target.files.length > 0) {
+                    setImage1(e.target.files[0]);
+                  }
+                }}
+                type="file"
+                id="image1"
+                hidden
+              />
             </label>
 
             <label htmlFor="image2">
-              <img 
-              className="w-20"
-              src={assets.upload_area}
-              alt="upload area" />
+              <img
+                className="w-20"
+                src={assets.upload_area}
+                alt="upload area"
+              />
               <input
-              onChange={(e) => {
-                if (e.target.files && e.target.files.length > 0) {
-                  setImage2(e.target.files[0]);
-                }
-              }}
-              type="file"
-              id="image2"
-              hidden
-            />
+                onChange={(e) => {
+                  if (e.target.files && e.target.files.length > 0) {
+                    setImage2(e.target.files[0]);
+                  }
+                }}
+                type="file"
+                id="image2"
+                hidden
+              />
             </label>
 
             <label htmlFor="image3">
-              <img 
-              className="w-20"
-              src={assets.upload_area}
-              alt="upload area" />
+              <img
+                className="w-20"
+                src={assets.upload_area}
+                alt="upload area"
+              />
               <input
-              onChange={(e) => {
-                if (e.target.files && e.target.files.length > 0) {
-                  setImage3(e.target.files[0]);
-                }
-              }}
-              type="file"
-              id="image3"
-              hidden
-            />
+                onChange={(e) => {
+                  if (e.target.files && e.target.files.length > 0) {
+                    setImage3(e.target.files[0]);
+                  }
+                }}
+                type="file"
+                id="image3"
+                hidden
+              />
             </label>
 
             <label htmlFor="image4">
-              <img 
-              className="w-20"
-              src={assets.upload_area}
-              alt="upload area" />
+              <img
+                className="w-20"
+                src={assets.upload_area}
+                alt="upload area"
+              />
               <input
-              onChange={(e) => {
-                if (e.target.files && e.target.files.length > 0) {
-                  setImage4(e.target.files[0]);
-                }
-              }}
-              type="file"
-              id="image4"
-              hidden
-            />
+                onChange={(e) => {
+                  if (e.target.files && e.target.files.length > 0) {
+                    setImage4(e.target.files[0]);
+                  }
+                }}
+                type="file"
+                id="image4"
+                hidden
+              />
             </label>
 
             <label htmlFor="image5">
-              <img 
-              className="w-20"
-              src={assets.upload_area}
-              alt="upload area" />
+              <img
+                className="w-20"
+                src={assets.upload_area}
+                alt="upload area"
+              />
               <input
-              onChange={(e) => {
-                if (e.target.files && e.target.files.length > 0) {
-                  setImage5(e.target.files[0]);
-                }
-              }}
-              type="file"
-              id="image5"
-              hidden
-            />
+                onChange={(e) => {
+                  if (e.target.files && e.target.files.length > 0) {
+                    setImage5(e.target.files[0]);
+                  }
+                }}
+                type="file"
+                id="image5"
+                hidden
+              />
             </label>
-
           </div>
         </div>
 
         <div className="flex flex-col items-center">
-            <button className="mt-20 bg-linear-to-b from-[#FF0036] to-[#321234] w-[300px] py-4 rounded-xl outline-2 outline-[#FF0036]">
+          <button className="mt-20 bg-linear-to-b from-[#FF0036] to-[#321234] w-[300px] py-4 rounded-xl outline-2 outline-[#FF0036]">
             Create Project
-            </button>
-          </div>
+          </button>
+        </div>
       </form>
     </div>
   );

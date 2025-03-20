@@ -7,13 +7,14 @@ const AddCommissionType = async (req, res) => {
     const type = {
       label,
       value: Number(value),
-      add_character: Number(add_character)
+      add_character: Number(add_character),
     };
 
-    
     const user = await userModel.findById(userId);
     if (!user) {
-      return res.status(404).json({ success: false, message: "User not found!" });
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found!" });
     }
 
     if (!user.commission_info.types) {
@@ -39,7 +40,9 @@ const AddCommissionFee = async (req, res) => {
 
     const user = await userModel.findById(userId);
     if (!user) {
-      return res.status(404).json({ success: false, message: "User not found!" });
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found!" });
     }
 
     if (!user.commission_info) {

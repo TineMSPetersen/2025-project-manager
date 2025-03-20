@@ -1,17 +1,22 @@
 import { useContext, useEffect, useState } from "react";
-import { assets, commissionTypes, commissionFees } from "../assets/assets";
+import { assets } from "../assets/assets";
 import { NavLink } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 import axios from "axios";
+import { ICommissionInfo } from "../types";
 
 const PriceCalculator = () => {
   const { backendUrl, token } = useContext(AppContext);
-  const [commissionInfo, setCommissionInfo] = useState([]);
+  const [commissionInfo, setCommissionInfo] = useState<ICommissionInfo>({
+    types: [],
+    fees: [],
+    currency: "USD",
+  });
   const [optionsOpen, setOptionsOpen] = useState(false);
 
   const [typePrice, setTypePrice] = useState(0);
   const [characterAmount, setCharacterAmount] = useState(1);
-  const [feePrices, setFeePrices] = useState([]);
+  const [feePrices, setFeePrices] = useState<number[]>([]);
   const [addCharaterPrice, setAddCharacterPrice] = useState(0);
   const [quote, setQuote] = useState(0);
 
@@ -30,7 +35,6 @@ const PriceCalculator = () => {
       if (response.data.success) {
         const info = response.data.commissionData.commission_info || [];
         setCommissionInfo(info);
-        console.log(commissionInfo);
       } else {
         console.log(response.data.message);
       }
@@ -47,21 +51,11 @@ const PriceCalculator = () => {
     const calculateFees = () => {
       return feePrices.reduce((acc, val) => acc + val, 0);
     };
-  
-    const total = typePrice + ((characterAmount - 1) * addCharaterPrice) + calculateFees();
+
+    const total =
+      typePrice + (characterAmount - 1) * addCharaterPrice + calculateFees();
     setQuote(total);
   }, [typePrice, characterAmount, addCharaterPrice, feePrices]);
-
-  /* const onSubmitHandler = (e) => {
-    e.preventDefault();
-  
-    const calculateFees = () => {
-      return feePrices.reduce((acc, val) => acc + val, 0);
-    };
-  
-    const total = typePrice + ((characterAmount - 1) * addCharaterPrice) + calculateFees();
-    setQuote(total);
-  }; */
 
   return (
     <div>
@@ -101,7 +95,7 @@ const PriceCalculator = () => {
               type="number"
               name="Character amount"
               id="characteramount"
-              onChange={(e) => setCharacterAmount(e.target.value)}
+              onChange={(e) => setCharacterAmount(Number(e.target.value) || 1)}
               value={characterAmount}
             />
           </div>
@@ -139,18 +133,23 @@ const PriceCalculator = () => {
         </div>
       </form>
 
-      
       {quote > 0 && (
         <div className="text-center">
-          <p className="text-3xl mt-10">Your Quote: {commissionInfo.currency} {quote}</p>
+          <p className="text-3xl mt-10">
+            Your Quote: {commissionInfo.currency} {quote}
+          </p>
           <p>Calculations:</p>
           <p> Base price: {typePrice} </p>
-          <p>Extra character price: + {characterAmount - 1} * { addCharaterPrice }</p>
+          <p>
+            Extra character price: + {characterAmount - 1} * {addCharaterPrice}
+          </p>
           <p>Fees: {feePrices.join(" + ")}</p>
-          <p>Total: {typePrice} + {(characterAmount -1) * addCharaterPrice} + {feePrices.join(" + ")}</p>
+          <p>
+            Total: {typePrice} + {(characterAmount - 1) * addCharaterPrice} +{" "}
+            {feePrices.join(" + ")}
+          </p>
         </div>
-)}
-      
+      )}
 
       {optionsOpen ? (
         <div className="bg-linear-to-b from-[#321234] to-[#140D2B] absolute right-0 bottom-0 rounded-l-md rounded-t-md pt-15 pb-20 px-15 z-20">

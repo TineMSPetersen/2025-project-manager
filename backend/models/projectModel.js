@@ -7,15 +7,16 @@ const projectSchema = new mongoose.Schema({
   customer_email: { type: String },
   customer_phone: { type: Number },
   description: { type: String },
-  images: {type: Array },
-  notes: {type: Array},
+  images: { type: Array },
+  notes: { type: Array },
   paid: { type: Boolean },
   amount_paid: { type: Number },
   date: { type: Number, required: true },
   duedate: { type: Number, required: true },
-  complete: { type: Boolean, default: false }
-})
+  complete: { type: Boolean, default: false },
+});
 
-const projectModel = mongoose.models.project || mongoose.model("project", projectSchema)
+const projectModel =
+  mongoose.models.project || mongoose.model("project", projectSchema);
 
 export default projectModel;
