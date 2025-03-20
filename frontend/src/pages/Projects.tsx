@@ -1,16 +1,53 @@
 import AddButton from "../components/AddButton"
-import { assets, projects } from "../assets/assets"
+import { assets } from "../assets/assets"
 import { NavLink } from "react-router-dom"
+import { useContext, useEffect, useState } from "react"
+import { AppContext } from "../context/AppContext"
+import axios from "axios"
 
 
 const Projects = () => {
+  interface Project {
+    _id: string;
+    project_name: string;
+    customer_name: string;
+    description: string;
+    paid: boolean;
+    duedate: string;
+    images: string[];
+  }
+
+  const { backendUrl, token } = useContext(AppContext)
+  const [ projectsData, setProjectsData ] = useState<Project[]>([]);
+
+  const fetchList = async () => {
+    try {
+      const response = await axios.post(backendUrl + '/api/project/list', {}, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      });
+  
+      if (response.data.success) {
+        setProjectsData(response.data.projectsData);
+      } else {
+        console.log(response.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect( () => {
+    fetchList();
+  }, [])
 
   return (
     <>
       <div className="grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-10 text-white">
         {
-          projects.map((item) => (
-            <NavLink to={`/project/${item._id}`}>
+          projectsData.map((item) => (
+            <NavLink key={item._id} to={`/project/${item._id}`}>
             <div className="bg-[#4A416A] p-6 h-fit relative rounded-md flex flex-col gap-4">
               <div>
                 <p className="text-2xl">{item.project_name}</p>
