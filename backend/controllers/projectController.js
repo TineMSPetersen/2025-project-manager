@@ -66,7 +66,7 @@ const getProjects = async (req, res) => {
   const { userId } = req.body;
 
   try {
-    const projectsData = await projectModel.find({ userId: userId });
+    const projectsData = await projectModel.find({ userId: userId, complete: false });
 
     if (projectsData.length === 0) {
       return res.json({
@@ -81,6 +81,27 @@ const getProjects = async (req, res) => {
     res.json({ success: false, message: error.message });
   }
 };
+
+const getArchiveProjects = async ( req, res ) => {
+  const { userId } = req.body;
+
+  try {
+    const archiveData = await projectModel.find({ userId: userId, complete: true });
+
+    if (archiveData.length === 0) {
+      return res.json({
+        success: false,
+        message: "No complete projects found",
+      });
+    }
+
+    res.json({ success: true, archiveData})
+
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+}
 
 const getSingleProject = async (req, res) => {
   const { userId, projectId } = req.body;
@@ -125,10 +146,24 @@ const changeDueDate = async (req, res) => {
   }
 };
 
+const deleteProject = async (req, res) => {
+  const { projectId } = req.body;
+
+  try {
+    await projectModel.findByIdAndDelete(projectId);
+    res.json({ success: true, message: "Project Removed!"})
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+}
+
 export {
   addProject,
   getProjects,
   getSingleProject,
   markComplete,
   changeDueDate,
+  getArchiveProjects,
+  deleteProject
 };

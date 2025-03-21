@@ -7,6 +7,7 @@ import PriceCalculator from "./pages/PriceCalculator";
 import NewProject from "./pages/NewProject";
 import Login from "./auth_pages/Login";
 import PriceSettings from "./pages/PriceSettings";
+import Archive from "./pages/Archive";
 
 const App = () => {
   const isLoggedIn = true;
@@ -26,6 +27,7 @@ const App = () => {
               <Route path="/newproject" element={<NewProject />} />
               <Route path="/login" element={<Login />} />
               <Route path="/pricesettings" element={<PriceSettings />} />
+              <Route path="/archive" element={<Archive />} />
             </Routes>
           </div>
         </div>
