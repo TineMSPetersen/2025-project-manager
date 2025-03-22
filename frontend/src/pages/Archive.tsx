@@ -71,7 +71,7 @@ const Archive = () => {
               <p>{new Date(Number(item.duedate)).toISOString()}</p>
               <img onClick={() => removeProject(item._id)} className="w-4" src={assets.close} alt="delete" />
             </div>
-            <hr className="text-gray-700" />
+            <hr className="text-gray-700 my-5" />
             <NavLink to={`/project/${item._id}`}>
           </NavLink>
           </div>
