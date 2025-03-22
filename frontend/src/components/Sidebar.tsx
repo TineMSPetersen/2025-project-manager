@@ -16,6 +16,9 @@ const Sidebar = () => {
             <li>
               <NavLink to={"/archive"}>Archive</NavLink>
             </li>
+            <li>
+              <NavLink to={"/deadlines"}>Deadlines</NavLink>
+            </li>
           </ul>
           <ul>
             <NavLink to={"/pricecalculator"}>

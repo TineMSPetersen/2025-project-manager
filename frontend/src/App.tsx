@@ -8,6 +8,7 @@ import NewProject from "./pages/NewProject";
 import Login from "./auth_pages/Login";
 import PriceSettings from "./pages/PriceSettings";
 import Archive from "./pages/Archive";
+import Deadlines from "./pages/Deadlines";
 
 const App = () => {
   const isLoggedIn = true;
@@ -28,6 +29,7 @@ const App = () => {
               <Route path="/login" element={<Login />} />
               <Route path="/pricesettings" element={<PriceSettings />} />
               <Route path="/archive" element={<Archive />} />
+              <Route path="/deadlines" element={<Deadlines />} />
             </Routes>
           </div>
         </div>
