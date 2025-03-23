@@ -223,7 +223,8 @@ const Project = () => {
           <div className="flex flex-col gap-5 items-center">
             <p className="text-2xl">Mark complete</p>
             <p>
-              Here you can change the due date to another time in the calendar.
+            This will mark the project as complete, and remove it from the
+            "Projects" tab and the calendar.
             </p>
             <div>
               <p className="mb-2">Is the project complete?</p>
@@ -254,8 +255,7 @@ const Project = () => {
           <div className="flex flex-col gap-5 items-center">
             <p className="text-2xl">Change Due Date</p>
             <p>
-              This will mark the project as complete, and remove it from the
-              "Projects" tab and the calendar.
+             Here you can change the due date to another time in the calendar.
             </p>
             <div>
               <form
