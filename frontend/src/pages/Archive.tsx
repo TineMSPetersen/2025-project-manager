@@ -68,7 +68,14 @@ const Archive = () => {
               <p>{item.project_name}</p>
               <p>{item.customer_name}</p>
               <p>USD {item.amount_paid}</p>
-              <p>{new Date(Number(item.duedate)).toISOString()}</p>
+              <p>{new Date(Number(item.duedate)).toLocaleDateString(
+                        "en-US",
+                        {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        }
+                      )}</p>
               <img onClick={() => removeProject(item._id)} className="w-4" src={assets.close} alt="delete" />
             </div>
             <hr className="text-gray-700 my-5" />
