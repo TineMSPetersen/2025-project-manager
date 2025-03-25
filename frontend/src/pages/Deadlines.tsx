@@ -46,6 +46,13 @@ const Deadlines = () => {
     return "bg-blue-200"
   }
 
+  const getPriorityColor = (priority: string) => {
+    if (priority === "High") return "bg-gray-100";
+    if (priority === "Low") return "bg-gray-500"
+    if (priority === "Mid") return "bg-gray-300"
+    return "none"
+  }
+
   const groupProjects = () => {
     const week: IProject[] = [];
     const month: IProject[] = [];
@@ -77,6 +84,7 @@ const Deadlines = () => {
         {group.map((item, index) => {
           const daysLeft = calculateDaysLeft(item.duedate);
           const labelColor = getLabelColor(daysLeft);
+          const priorityColor = getPriorityColor(item.priority)
           const dueDateObj = new Date(item.duedate);
           const dueDateFormatted = dueDateObj.toLocaleDateString("en-US", {
             day: "2-digit",
@@ -87,22 +95,30 @@ const Deadlines = () => {
           return (
             <NavLink to={`/project/${item._id}`} key={index}>
             <div key={index} className="grid grid-cols-5 items-center mb-2">
+              <div className="flex gap-1">
               <p
-                className={`${labelColor} mr-2 px-2 py-1 rounded-xl text-black max-w-30 text-center`}
+                className={`${labelColor} mr-2 px-2 py-1 rounded-xl text-black w-30 text-center`}
               >
                 {daysLeft <= 0
                   ? "Due today"
                   : `${daysLeft} ${daysLeft === 1 ? "Day" : "Days"} Left`}
               </p>
+              <p
+                className={`${priorityColor} mr-2 px-2 py-1 rounded-xl text-black text-center`}
+              >
+                Priority: {item.priority}
+              </p>
+              </div>
               <p>{dueDateFormatted}</p>
               <p>{item.project_name}</p>
               <p>{item.customer_name}</p>
               <p>{item.paid ? "Paid" : "Unpaid"}</p>
             </div>
+            <hr className="text-gray-700 my-5" />
             </NavLink>
+            
           );
         })}
-        <hr className="text-gray-700 my-5" />
       </div>
     );
   };
@@ -111,7 +127,7 @@ const Deadlines = () => {
     <div>
       <h1 className="text-5xl mb-15">Deadlines</h1>
       <div className="grid grid-cols-5 text-xl">
-        <p>Days left</p>
+        <p></p>
         <p>Due Date</p>
         <p>Project Name</p>
         <p>Client Name</p>

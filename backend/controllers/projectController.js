@@ -158,6 +158,23 @@ const deleteProject = async (req, res) => {
   }
 }
 
+const changePriority = async (req, res) => {
+  const { projectId, newPriority } = req.body;
+
+  try {
+    await projectModel.findByIdAndUpdate(
+      projectId,
+      { priority: newPriority},
+      { new: true }
+    )
+
+    res.json({ success: true, message: "Priority has been updated"});
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+}
+
 export {
   addProject,
   getProjects,
@@ -165,5 +182,6 @@ export {
   markComplete,
   changeDueDate,
   getArchiveProjects,
-  deleteProject
+  deleteProject,
+  changePriority
 };

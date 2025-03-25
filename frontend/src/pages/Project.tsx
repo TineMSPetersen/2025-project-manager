@@ -13,8 +13,10 @@ const Project = () => {
   const [optionsOpen, setOptionsOpen] = useState(false);
   const [completeOpen, setCompleteOpen] = useState(false);
   const [dueDateOpen, setDueDateOpen] = useState(false);
+  const [priorityOpen, setPriorityOpen] = useState(false);
 
   const [newDueDate, setNewDueDate] = useState("");
+  const [newPriority, setNewPriority] = useState("");
 
   const fetchProjectInfo = async () => {
     try {
@@ -81,6 +83,28 @@ const Project = () => {
     }
   };
 
+  const changePriority = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(backendUrl + '/api/project/changepriority',
+        {projectId, newPriority},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+
+      if (response.data.success) {
+        setPriorityOpen(false);
+        fetchProjectInfo();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div>
       {projectData ? (
@@ -92,6 +116,22 @@ const Project = () => {
             </div>
             <div className="flex flex-col gap-4">
               <div className="flex gap-4 h-fit">
+                {projectData.priority ? (
+                  <div onClick={() => setPriorityOpen(true)}
+                    className={`
+      text-black w-fit px-3 py-2 text-xl
+      ${
+        projectData.priority === "High"
+          ? "bg-gray-100"
+          : projectData.priority === "Mid"
+          ? "bg-gray-300"
+          : "bg-gray-500"
+      }
+    `}
+                  >
+                    <p>Priority: {projectData.priority}</p>
+                  </div>
+                ) : null}
                 {projectData.paid ? (
                   <div className="bg-[#BBF491] text-black w-fit px-3 py-2 text-xl">
                     PAID{" "}
@@ -183,6 +223,7 @@ const Project = () => {
                 setCompleteOpen(true);
                 setOptionsOpen(false);
                 setDueDateOpen(false);
+                setPriorityOpen(false);
               }}
               className="flex gap-3"
             >
@@ -194,12 +235,26 @@ const Project = () => {
               onClick={() => {
                 setCompleteOpen(false);
                 setOptionsOpen(false);
+                setPriorityOpen(false);
                 setDueDateOpen(true);
               }}
               className="flex gap-3"
             >
               <img className="max-h-[28px]" src={assets.clock_white} />{" "}
-              <p className="text-lg">Change due date</p>
+              <p className="text-lg">Change Due Date</p>
+            </li>
+            <hr />
+            <li
+              onClick={() => {
+                setCompleteOpen(false);
+                setOptionsOpen(false);
+                setDueDateOpen(false);
+                setPriorityOpen(true);
+              }}
+              className="flex gap-3"
+            >
+              <img className="max-h-[28px]" src={assets.checkmark} alt="" />
+              <p className="text-lg">Chage Priority</p>
             </li>
             <hr />
           </ul>
@@ -296,6 +351,39 @@ const Project = () => {
             </div>
           </div>
         </div>
+      ) : null}
+
+      {priorityOpen ? (
+        <div className="bg-gradient-to-b from-[#321234] to-[#140D2B] absolute m-auto left-0 right-0 z-30 p-10 min-w-[400px] max-w-[600px] top-[30%] text-center rounded-md">
+        <div className="relative">
+          <img
+            onClick={() => setPriorityOpen(false)}
+            src={assets.close}
+            className="w-5 h-5 absolute right-0 top-0"
+          />
+        </div>
+        <div className="flex flex-col gap-5 items-center">
+          <p className="text-2xl">Set Priority</p>
+          <p>
+            Setting a priority helps you keep track on how important the project is for you.
+          </p>
+          <div>
+            <p className="mb-2">What is this project's priority?</p>
+            <form onSubmit={changePriority} className="flex flex-col gap-1">
+              <label htmlFor="default"><input onChange={(e) => setNewPriority(e.target.value)} type="radio" name="priority" value="Default" id="default" /> Default</label>
+              <label htmlFor="low"><input onChange={(e) => setNewPriority(e.target.value)} type="radio" name="priority" value="Low" id="low" /> Low</label>
+              <label htmlFor="mid"><input onChange={(e) => setNewPriority(e.target.value)} type="radio" name="priority" value="Mid" id="mid" /> Medium</label>
+              <label htmlFor="high"><input onChange={(e) => setNewPriority(e.target.value)} type="radio" name="priority" value="High" id="high" /> High</label>
+              <button
+                    type="submit"
+                    className="bg-[#BBF491] rounded-md text-black py-2 px-5 flex gap-2 items-center justify-center mt-5"
+                  >
+                    <p>Confirm</p>
+                  </button>
+            </form>
+          </div>
+        </div>
+      </div>
       ) : null}
     </div>
   );

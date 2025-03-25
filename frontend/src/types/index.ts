@@ -27,6 +27,7 @@ export type IProject = {
   duedate: string;
   images: string[];
   amount_paid: number;
+  priority: string;
 };
 
 export type IAppContextType = {

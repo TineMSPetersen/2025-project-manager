@@ -14,6 +14,7 @@ const projectSchema = new mongoose.Schema({
   date: { type: Number, required: true },
   duedate: { type: Number, required: true },
   complete: { type: Boolean, default: false },
+  priority: { type: String, default: "None"}
 });
 
 const projectModel =
