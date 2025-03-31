@@ -11,7 +11,7 @@ import Archive from "./pages/Archive";
 import Deadlines from "./pages/Deadlines";
 
 const App = () => {
-  const isLoggedIn = true;
+  const isLoggedIn = false;
 
   return (
     <>
