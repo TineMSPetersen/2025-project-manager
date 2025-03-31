@@ -12,6 +12,7 @@ import clock_white from "./clock_white.png";
 import close from "./close.png";
 import checkmark_black from "./checkmark_black.png";
 import upload_area from "./upload_area.png";
+import logout from './logout.png'
 
 export const assets = {
   header,
@@ -28,4 +29,5 @@ export const assets = {
   close,
   checkmark_black,
   upload_area,
+  logout
 };
