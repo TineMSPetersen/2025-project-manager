@@ -9,13 +9,15 @@ import Login from "./auth_pages/Login";
 import PriceSettings from "./pages/PriceSettings";
 import Archive from "./pages/Archive";
 import Deadlines from "./pages/Deadlines";
+import { useContext } from "react";
+import { AppContext } from "./context/AppContext";
 
 const App = () => {
-  const isLoggedIn = false;
+  const { token } = useContext(AppContext)
 
   return (
     <>
-      {isLoggedIn ? (
+      {token ? (
         <div className="bg-black w-full h-screen text-white grid grid-cols-[1fr_5fr]">
           <Sidebar />
 
