@@ -13,6 +13,8 @@ import close from "./close.png";
 import checkmark_black from "./checkmark_black.png";
 import upload_area from "./upload_area.png";
 import logout from './logout.png'
+import priority from './priority.png'
+import priority_white from './priority_white.png'
 
 export const assets = {
   header,
@@ -29,5 +31,6 @@ export const assets = {
   close,
   checkmark_black,
   upload_area,
-  logout
+  logout,
+  priority, priority_white
 };

@@ -9,6 +9,7 @@ import { IProject } from "../types";
 const Projects = () => {
   const { backendUrl, token } = useContext(AppContext);
   const [projectsData, setProjectsData] = useState<IProject[]>([]);
+  const today = new Date();
 
   const fetchList = async () => {
     try {
@@ -36,10 +37,36 @@ const Projects = () => {
     fetchList();
   }, []);
 
+  const calculateDaysLeft = (dueDate: string) => {
+    const due = new Date(dueDate).getTime();
+    const now = today.getTime();
+    const diffTime = due - now;
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays
+  }
+
+  const getLabelColor = (daysLeft: number) => {
+    if (daysLeft <= 3) return "bg-red-400";
+    if (daysLeft <= 14) return "bg-yellow-200"
+    return "bg-blue-200"
+  }
+
+  const getPriorityColor = (priority: string) => {
+    if (priority === "High") return "bg-gray-100";
+    if (priority === "Low") return "bg-gray-500"
+    if (priority === "Mid") return "bg-gray-300"
+    return "none"
+  }
+
   return (
     <>
       <div className="grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-10 text-white">
-        {projectsData.map((item) => (
+        {projectsData.map((item) => {
+          const daysLeft = calculateDaysLeft(item.duedate);
+          const labelColor = getLabelColor(daysLeft);
+          const priorityColor = getPriorityColor(item.priority)
+
+          return (
           <NavLink key={item._id} to={`/project/${item._id}`}>
             <div className="bg-[#4A416A] p-6 h-fit relative rounded-md flex flex-col gap-4">
               <div>
@@ -69,8 +96,16 @@ const Projects = () => {
                 </div>
 
                 {item.duedate != "" ? (
-                  <div className="bg-[#FFFD7C] w-7 h-7 flex justify-center items-center outline-1 outline-black">
+                  <div className={`${labelColor} w-7 h-7 flex justify-center items-center outline-1 outline-black`}>
                     <img src={assets.clock} />
+                  </div>
+                ) : (
+                  ""
+                )}
+
+                {item.priority != "Default" ? (
+                  <div className={`${priorityColor} w-7 h-7 flex justify-center items-center outline-1 outline-black`}>
+                    <img src={assets.priority} />
                   </div>
                 ) : (
                   ""
@@ -78,7 +113,7 @@ const Projects = () => {
               </div>
             </div>
           </NavLink>
-        ))}
+)})}
       </div>
       <AddButton />
     </>

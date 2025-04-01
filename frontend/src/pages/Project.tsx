@@ -24,6 +24,8 @@ const Project = () => {
     projectData?.paid ? "true" : "false"
   );
 
+  const today = new Date();
+
   const fetchProjectInfo = async () => {
     try {
       const response = await axios.post(
@@ -137,6 +139,25 @@ const Project = () => {
     } catch (error) {}
   };
 
+  const calculateDaysLeft = (dueDate: string) => {
+    const due = new Date(dueDate).getTime();
+    const now = today.getTime();
+    const diffTime = due - now;
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays
+  }
+
+  const getLabelColor = (daysLeft: number) => {
+    if (daysLeft <= 3) return "bg-red-400";
+    if (daysLeft <= 14) return "bg-yellow-200"
+    return "bg-blue-200"
+  }
+
+    const daysLeft = calculateDaysLeft(projectData?.duedate || "");
+    const labelColor = getLabelColor(daysLeft);
+
+  
+
   return (
     <div>
       {projectData ? (
@@ -207,7 +228,7 @@ const Project = () => {
                     setPriorityOpen(false);
                     setPriceOpen(false)
                     }}
-                    className="bg-[#FFFD7C] text-black w-fit px-3 py-2 text-xl flex gap-2 items-center"
+                    className={ `${labelColor} text-black w-fit px-3 py-2 text-xl flex gap-2 items-center`}
                   >
                     <img
                       className="max-w-[70%] max-h-[70%] object-contain"
