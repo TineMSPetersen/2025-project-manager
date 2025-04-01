@@ -2,6 +2,7 @@ import express from "express";
 import {
   addProject,
   changeDueDate,
+  changePaid,
   changePriority,
   deleteProject,
   getArchiveProjects,
@@ -33,5 +34,6 @@ projectRouter.post("/changeduedate", authUser, changeDueDate);
 projectRouter.post("/listarchive", authUser, getArchiveProjects);
 projectRouter.post("/delete", authUser, deleteProject)
 projectRouter.post("/changepriority", authUser, changePriority)
+projectRouter.post("/changepayment", authUser, changePaid)
 
 export default projectRouter;

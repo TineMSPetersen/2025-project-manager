@@ -66,7 +66,10 @@ const getProjects = async (req, res) => {
   const { userId } = req.body;
 
   try {
-    const projectsData = await projectModel.find({ userId: userId, complete: false });
+    const projectsData = await projectModel.find({
+      userId: userId,
+      complete: false,
+    });
 
     if (projectsData.length === 0) {
       return res.json({
@@ -82,11 +85,14 @@ const getProjects = async (req, res) => {
   }
 };
 
-const getArchiveProjects = async ( req, res ) => {
+const getArchiveProjects = async (req, res) => {
   const { userId } = req.body;
 
   try {
-    const archiveData = await projectModel.find({ userId: userId, complete: true });
+    const archiveData = await projectModel.find({
+      userId: userId,
+      complete: true,
+    });
 
     if (archiveData.length === 0) {
       return res.json({
@@ -95,13 +101,12 @@ const getArchiveProjects = async ( req, res ) => {
       });
     }
 
-    res.json({ success: true, archiveData})
-
+    res.json({ success: true, archiveData });
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: error.message });
   }
-}
+};
 
 const getSingleProject = async (req, res) => {
   const { userId, projectId } = req.body;
@@ -151,12 +156,12 @@ const deleteProject = async (req, res) => {
 
   try {
     await projectModel.findByIdAndDelete(projectId);
-    res.json({ success: true, message: "Project Removed!"})
+    res.json({ success: true, message: "Project Removed!" });
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: error.message });
   }
-}
+};
 
 const changePriority = async (req, res) => {
   const { projectId, newPriority } = req.body;
@@ -164,16 +169,35 @@ const changePriority = async (req, res) => {
   try {
     await projectModel.findByIdAndUpdate(
       projectId,
-      { priority: newPriority},
+      { priority: newPriority },
       { new: true }
-    )
+    );
 
-    res.json({ success: true, message: "Priority has been updated"});
+    res.json({ success: true, message: "Priority has been updated" });
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: error.message });
   }
-}
+};
+
+const changePaid = async (req, res) => {
+  const { projectId, newPrice, paidStatus } = req.body;
+
+  try {
+    await projectModel.findByIdAndUpdate(
+      projectId,
+      { 
+        paid: paidStatus === "true", 
+        amount_paid: newPrice 
+      },
+      { new: true }
+    );
+    res.json({ success: true, message: "Payment info updated" });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
 
 export {
   addProject,
@@ -183,5 +207,6 @@ export {
   changeDueDate,
   getArchiveProjects,
   deleteProject,
-  changePriority
+  changePriority,
+  changePaid,
 };

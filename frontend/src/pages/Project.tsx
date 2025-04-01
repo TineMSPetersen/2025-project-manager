@@ -14,9 +14,15 @@ const Project = () => {
   const [completeOpen, setCompleteOpen] = useState(false);
   const [dueDateOpen, setDueDateOpen] = useState(false);
   const [priorityOpen, setPriorityOpen] = useState(false);
+  const [priceOpen, setPriceOpen] = useState(false);
 
   const [newDueDate, setNewDueDate] = useState("");
   const [newPriority, setNewPriority] = useState("");
+
+  const [newPrice, setNewPrice] = useState(0);
+  const [paidStatus, setPaidStatus] = useState(
+    projectData?.paid ? "true" : "false"
+  );
 
   const fetchProjectInfo = async () => {
     try {
@@ -87,14 +93,15 @@ const Project = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(backendUrl + '/api/project/changepriority',
-        {projectId, newPriority},
+      const response = await axios.post(
+        backendUrl + "/api/project/changepriority",
+        { projectId, newPriority },
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
-      )
+      );
 
       if (response.data.success) {
         setPriorityOpen(false);
@@ -103,7 +110,32 @@ const Project = () => {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
+
+  const changePayment = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(
+        backendUrl + "/api/project/changepayment",
+        {
+          projectId,
+          newPrice,
+          paidStatus,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.data.success) {
+        setPriceOpen(false);
+        fetchProjectInfo();
+      }
+    } catch (error) {}
+  };
 
   return (
     <div>
@@ -117,7 +149,14 @@ const Project = () => {
             <div className="flex flex-col gap-4">
               <div className="flex gap-4 h-fit">
                 {projectData.priority ? (
-                  <div onClick={() => setPriorityOpen(true)}
+                  <div
+                    onClick={() => {
+                      setCompleteOpen(false);
+                    setOptionsOpen(false);
+                    setDueDateOpen(false);
+                    setPriorityOpen(true);
+                    setPriceOpen(false)
+                    }}
                     className={`
       text-black w-fit px-3 py-2 text-xl
       ${
@@ -133,14 +172,26 @@ const Project = () => {
                   </div>
                 ) : null}
                 {projectData.paid ? (
-                  <div className="bg-[#BBF491] text-black w-fit px-3 py-2 text-xl">
+                  <div onClick={() => {
+                    setCompleteOpen(false);
+                    setOptionsOpen(false);
+                    setDueDateOpen(false);
+                    setPriorityOpen(false);
+                    setPriceOpen(true)
+                  }} className="bg-[#BBF491] text-black w-fit px-3 py-2 text-xl">
                     PAID{" "}
                     {projectData.amount_paid
                       ? "- $" + projectData.amount_paid
                       : ""}
                   </div>
                 ) : (
-                  <div className="bg-[#FF3762] text-black w-fit px-3 py-2 text-xl">
+                  <div onClick={() => {
+                    setCompleteOpen(false);
+                    setOptionsOpen(false);
+                    setDueDateOpen(false);
+                    setPriorityOpen(false);
+                    setPriceOpen(true)
+                  }} className="bg-[#FF3762] text-black w-fit px-3 py-2 text-xl">
                     UNPAID{" "}
                     {projectData.amount_paid
                       ? "- $" + projectData.amount_paid
@@ -149,7 +200,13 @@ const Project = () => {
                 )}
                 {projectData && projectData.duedate ? (
                   <div
-                    onClick={() => setDueDateOpen(true)}
+                    onClick={() => {
+                      setCompleteOpen(false);
+                    setOptionsOpen(false);
+                    setDueDateOpen(true);
+                    setPriorityOpen(false);
+                    setPriceOpen(false)
+                    }}
                     className="bg-[#FFFD7C] text-black w-fit px-3 py-2 text-xl flex gap-2 items-center"
                   >
                     <img
@@ -224,6 +281,7 @@ const Project = () => {
                 setOptionsOpen(false);
                 setDueDateOpen(false);
                 setPriorityOpen(false);
+                setPriceOpen(false)
               }}
               className="flex gap-3"
             >
@@ -237,6 +295,7 @@ const Project = () => {
                 setOptionsOpen(false);
                 setPriorityOpen(false);
                 setDueDateOpen(true);
+                setPriceOpen(false);
               }}
               className="flex gap-3"
             >
@@ -250,11 +309,12 @@ const Project = () => {
                 setOptionsOpen(false);
                 setDueDateOpen(false);
                 setPriorityOpen(true);
+                setPriceOpen(false);
               }}
               className="flex gap-3"
             >
               <img className="max-h-[28px]" src={assets.checkmark} alt="" />
-              <p className="text-lg">Chage Priority</p>
+              <p className="text-lg">Change Priority</p>
             </li>
             <hr />
           </ul>
@@ -355,35 +415,131 @@ const Project = () => {
 
       {priorityOpen ? (
         <div className="bg-gradient-to-b from-[#321234] to-[#140D2B] absolute m-auto left-0 right-0 z-30 p-10 min-w-[400px] max-w-[600px] top-[30%] text-center rounded-md">
-        <div className="relative">
-          <img
-            onClick={() => setPriorityOpen(false)}
-            src={assets.close}
-            className="w-5 h-5 absolute right-0 top-0"
-          />
+          <div className="relative">
+            <img
+              onClick={() => setPriorityOpen(false)}
+              src={assets.close}
+              className="w-5 h-5 absolute right-0 top-0"
+            />
+          </div>
+          <div className="flex flex-col gap-5 items-center">
+            <p className="text-2xl">Set Priority</p>
+            <p>
+              Setting a priority helps you keep track on how important the
+              project is for you.
+            </p>
+            <div>
+              <p className="mb-2">What is this project's priority?</p>
+              <form onSubmit={changePriority} className="flex flex-col gap-1">
+                <label htmlFor="default">
+                  <input
+                    onChange={(e) => setNewPriority(e.target.value)}
+                    type="radio"
+                    name="priority"
+                    value="Default"
+                    id="default"
+                  />{" "}
+                  Default
+                </label>
+                <label htmlFor="low">
+                  <input
+                    onChange={(e) => setNewPriority(e.target.value)}
+                    type="radio"
+                    name="priority"
+                    value="Low"
+                    id="low"
+                  />{" "}
+                  Low
+                </label>
+                <label htmlFor="mid">
+                  <input
+                    onChange={(e) => setNewPriority(e.target.value)}
+                    type="radio"
+                    name="priority"
+                    value="Mid"
+                    id="mid"
+                  />{" "}
+                  Medium
+                </label>
+                <label htmlFor="high">
+                  <input
+                    onChange={(e) => setNewPriority(e.target.value)}
+                    type="radio"
+                    name="priority"
+                    value="High"
+                    id="high"
+                  />{" "}
+                  High
+                </label>
+                <button
+                  type="submit"
+                  className="bg-[#BBF491] rounded-md text-black py-2 px-5 flex gap-2 items-center justify-center mt-5"
+                >
+                  <p>Confirm</p>
+                </button>
+              </form>
+            </div>
+          </div>
         </div>
-        <div className="flex flex-col gap-5 items-center">
-          <p className="text-2xl">Set Priority</p>
-          <p>
-            Setting a priority helps you keep track on how important the project is for you.
-          </p>
-          <div>
-            <p className="mb-2">What is this project's priority?</p>
-            <form onSubmit={changePriority} className="flex flex-col gap-1">
-              <label htmlFor="default"><input onChange={(e) => setNewPriority(e.target.value)} type="radio" name="priority" value="Default" id="default" /> Default</label>
-              <label htmlFor="low"><input onChange={(e) => setNewPriority(e.target.value)} type="radio" name="priority" value="Low" id="low" /> Low</label>
-              <label htmlFor="mid"><input onChange={(e) => setNewPriority(e.target.value)} type="radio" name="priority" value="Mid" id="mid" /> Medium</label>
-              <label htmlFor="high"><input onChange={(e) => setNewPriority(e.target.value)} type="radio" name="priority" value="High" id="high" /> High</label>
+      ) : null}
+
+      {priceOpen ? (
+        <div className="bg-gradient-to-b from-[#321234] to-[#140D2B] absolute m-auto left-0 right-0 z-30 p-10 min-w-[400px] max-w-[600px] top-[30%] text-center rounded-md">
+          <div className="relative">
+            <img
+              onClick={() => setPriceOpen(false)}
+              src={assets.close}
+              className="w-5 h-5 absolute right-0 top-0"
+            />
+          </div>
+          <div className="flex flex-col gap-5 items-center">
+            <p className="text-2xl">Edit Price</p>
+            <p>Change the payment amount, and update status of the project.</p>
+            <form onSubmit={changePayment} className="flex flex-col gap-1">
+              <label htmlFor="">
+                Price:
+                <input
+                  className="block"
+                  type="number"
+                  value={newPrice || projectData?.amount_paid}
+                  onChange={(e) => setNewPrice(Number(e.target.value))}
+                  placeholder={projectData?.amount_paid?.toString()}
+                />
+              </label>
+              <p className="mt-5">Is this project paid?</p>
+              <div className="flex gap-4 justify-center">
+                <label htmlFor="unpaid">
+                  <input
+                    onChange={(e) => setPaidStatus(e.target.value)}
+                    type="radio"
+                    name="status"
+                    checked={paidStatus === "false"}
+                    value="false"
+                    id="unpaid"
+                  />{" "}
+                  Unpaid
+                </label>
+                <label htmlFor="paid">
+                  <input
+                    onChange={(e) => setPaidStatus(e.target.value)}
+                    type="radio"
+                    name="status"
+                    checked={paidStatus === "true"}
+                    value="true"
+                    id="paid"
+                  />{" "}
+                  Paid
+                </label>
+              </div>
               <button
-                    type="submit"
-                    className="bg-[#BBF491] rounded-md text-black py-2 px-5 flex gap-2 items-center justify-center mt-5"
-                  >
-                    <p>Confirm</p>
-                  </button>
+                type="submit"
+                className="bg-[#BBF491] rounded-md text-black py-2 px-5 flex gap-2 items-center justify-center mt-5"
+              >
+                <p>Confirm</p>
+              </button>
             </form>
           </div>
         </div>
-      </div>
       ) : null}
     </div>
   );
