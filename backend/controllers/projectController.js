@@ -62,6 +62,43 @@ const addProject = async (req, res) => {
   }
 };
 
+const updateProject = async (req, res) => {
+  try {
+    let {
+      projectId,
+      project_name,
+      customer_name,
+      customer_email,
+      customer_phone,
+      description,
+      notes,
+    } = req.body;
+
+    
+    if (typeof notes === "string") {
+      notes = notes.split(";").map((note) => note.trim()).filter(Boolean);
+    }
+
+    await projectModel.findByIdAndUpdate(
+      projectId,
+      {
+        project_name,
+        customer_name,
+        customer_email,
+        customer_phone,
+        description,
+        notes,
+      },
+      { new: true }
+    );
+
+    res.json({ success: true, message: "Project info updated" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
 const getProjects = async (req, res) => {
   const { userId } = req.body;
 
@@ -186,9 +223,9 @@ const changePaid = async (req, res) => {
   try {
     await projectModel.findByIdAndUpdate(
       projectId,
-      { 
-        paid: paidStatus === "true", 
-        amount_paid: newPrice 
+      {
+        paid: paidStatus === "true",
+        amount_paid: newPrice,
       },
       { new: true }
     );
@@ -209,4 +246,5 @@ export {
   deleteProject,
   changePriority,
   changePaid,
+  updateProject
 };

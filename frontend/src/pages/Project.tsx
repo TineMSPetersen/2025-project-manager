@@ -6,7 +6,7 @@ import axios from "axios";
 import { IProject } from "../types";
 
 const Project = () => {
-  const { backendUrl, token } = useContext(AppContext);
+  const { backendUrl, token, navigate } = useContext(AppContext);
   const { projectId } = useParams();
   const [projectData, setProjectData] = useState<IProject | null>(null);
 
@@ -296,6 +296,11 @@ const Project = () => {
       {optionsOpen ? (
         <div className="bg-linear-to-b from-[#321234] to-[#140D2B] absolute right-0 bottom-0 rounded-l-md rounded-t-md pt-15 pb-20 px-15 z-20">
           <ul className="flex flex-col gap-8">
+            <li onClick={() => navigate(`/project/${projectId}/edit`) } className="flex gap-3">
+            <img className="max-h-[28px]" src={assets.settings} alt="" />
+            <p className="text-lg">Edit Project Details</p>
+            </li>
+            <hr />
             <li
               onClick={() => {
                 setCompleteOpen(true);

@@ -9,6 +9,7 @@ import {
   getProjects,
   getSingleProject,
   markComplete,
+  updateProject,
 } from "../controllers/projectController.js";
 import upload from "../middleware/multer.js";
 import authUser from "../middleware/auth.js";
@@ -32,8 +33,13 @@ projectRouter.post("/singleproject", authUser, getSingleProject);
 projectRouter.post("/markcomplete", authUser, markComplete);
 projectRouter.post("/changeduedate", authUser, changeDueDate);
 projectRouter.post("/listarchive", authUser, getArchiveProjects);
-projectRouter.post("/delete", authUser, deleteProject)
-projectRouter.post("/changepriority", authUser, changePriority)
-projectRouter.post("/changepayment", authUser, changePaid)
+projectRouter.post("/delete", authUser, deleteProject);
+projectRouter.post("/changepriority", authUser, changePriority);
+projectRouter.post("/changepayment", authUser, changePaid);
+projectRouter.post(
+  "/update",
+  authUser,
+  updateProject
+);
 
 export default projectRouter;
