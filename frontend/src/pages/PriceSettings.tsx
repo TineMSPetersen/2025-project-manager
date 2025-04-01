@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../context/AppContext";
 import axios from "axios";
 import { ICommissionInfo } from "../types";
+import { assets } from "../assets/assets";
 
 const PriceSettings = () => {
   const { backendUrl, token } = useContext(AppContext);
@@ -93,6 +94,36 @@ const PriceSettings = () => {
     }
   };
 
+  const deleteCommissionType = async (index: number) => {
+
+    try {
+      await axios.post(backendUrl + '/api/commission/removetype', {index}, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+
+      fetchCommissionInfo();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const deleteCommissionFee = async (index: number) => {
+
+    try {
+      await axios.post(backendUrl + '/api/commission/removefee', {index}, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+
+      fetchCommissionInfo();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div>
       <h1 className="text-5xl mb-15">Change Price Information</h1>
@@ -102,10 +133,11 @@ const PriceSettings = () => {
           <div>
             {commissionInfo.types &&
               commissionInfo.types.map((item, index) => (
-                <div key={index}>
+                <div className="flex gap-5 align-middle" key={index}>
                   <p>
                     {item.label} - {commissionInfo.currency} {item.value}
                   </p>
+                  <img onClick={() => deleteCommissionType(index)} src={assets.close} className="w-4 h-4 cursor-pointer" alt="close" />
                 </div>
               ))}
           </div>
@@ -157,10 +189,11 @@ const PriceSettings = () => {
           <div>
             {commissionInfo.fees &&
               commissionInfo.fees.map((item, index) => (
-                <div key={index}>
+                <div className="flex gap-5 align-middle" key={index}>
                   <p>
                     {item.label} - {commissionInfo.currency} {item.value}
                   </p>
+                  <img onClick={() => deleteCommissionFee(index)} src={assets.close} className="w-4 h-4 cursor-pointer" alt="close" />
                 </div>
               ))}
           </div>

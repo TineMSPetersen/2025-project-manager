@@ -32,6 +32,28 @@ const AddCommissionType = async (req, res) => {
   }
 };
 
+const DeleteCommissionType = async (req, res) => {
+  const { userId, index } = req.body;
+
+  try {
+    const user = await userModel.findById(userId);
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found!" });
+    }
+
+    user.commission_info.types.splice(index, 1);
+
+  await user.save();
+  res.json({ success: true, message: "Commission Type Removed!" });
+    
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+}
+
 const AddCommissionFee = async (req, res) => {
   try {
     const { label, value, type, userId } = req.body;
@@ -62,6 +84,28 @@ const AddCommissionFee = async (req, res) => {
   }
 };
 
+const DeleteCommissionFee = async (req, res) => {
+  const { userId, index } = req.body;
+
+  try {
+    const user = await userModel.findById(userId);
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found!" });
+    }
+
+    user.commission_info.fees.splice(index, 1);
+
+  await user.save();
+  res.json({ success: true, message: "Commission Fee Removed!" });
+    
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+}
+
 const GetCommissionInfo = async (req, res) => {
   try {
     const { userId } = req.body;
@@ -78,4 +122,4 @@ const GetCommissionInfo = async (req, res) => {
   }
 };
 
-export { AddCommissionType, AddCommissionFee, GetCommissionInfo };
+export { AddCommissionType, AddCommissionFee, GetCommissionInfo, DeleteCommissionType, DeleteCommissionFee };
