@@ -66,7 +66,11 @@ const PriceCalculator = () => {
             <p className="text-2xl mb-5">Commission Type:</p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {commissionInfo.types &&
+              {commissionInfo.types.length < 1 ? (<div>
+                <p>You don't have any commission types yet</p>
+                <NavLink to={"/pricesettings"} className="underline mt-2 cursor-pointer">Add commission types</NavLink>
+              </div>) :
+              commissionInfo.types &&
                 commissionInfo.types.map((item) => (
                   <div key={item.label} className="flex gap-2">
                     <input
@@ -82,7 +86,8 @@ const PriceCalculator = () => {
                       {item.label} - ${item.value}
                     </label>
                   </div>
-                ))}
+                ))
+              }
             </div>
           </div>
           <div>
@@ -105,7 +110,13 @@ const PriceCalculator = () => {
             <p className="text-2xl mb-5">Extra Fees:</p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {commissionInfo.fees &&
+            {commissionInfo.types.length < 1 ? (<div>
+              <p>You don't have any commission fees yet</p>
+              <NavLink to={"/pricesettings"} className="underline mt-2 cursor-pointer">Add commission fees</NavLink>
+            </div>
+              
+            ) :
+              commissionInfo.fees &&
                 commissionInfo.fees.map((item) => (
                   <div key={item.label} className="flex gap-2">
                     <input
