@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { assets } from "../assets/assets";
 import { NavLink } from "react-router-dom";
+import { AppContext } from "../context/AppContext";
 
 const Sidebar = () => {
+  const { navigate } = useContext(AppContext)
   const [ settingsOpen, setSettingsOpen ] = useState(false);
 
   const logout = () => {
     localStorage.removeItem('token')
+    navigate('/');
     window.location.reload();
   }
   
