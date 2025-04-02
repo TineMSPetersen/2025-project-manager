@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-import Dashboard from "./pages/Dashboard";
 import Projects from "./pages/Projects";
 import Sidebar from "./components/Sidebar";
 import Project from "./pages/Project";
@@ -24,7 +23,7 @@ const App = () => {
 
           <div className="px-20 py-10 overflow-y-auto h-screen">
             <Routes>
-              <Route path="/" element={<Dashboard />} />
+              <Route path="/" element={<Projects />} />
               <Route path="/projects" element={<Projects />} />
               <Route path="/project/:projectId" element={<Project />} />
               <Route path="/project/:projectId/edit" element={<EditProject />} />
