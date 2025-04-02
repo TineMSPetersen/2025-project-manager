@@ -45,14 +45,13 @@ const DeleteCommissionType = async (req, res) => {
 
     user.commission_info.types.splice(index, 1);
 
-  await user.save();
-  res.json({ success: true, message: "Commission Type Removed!" });
-    
+    await user.save();
+    res.json({ success: true, message: "Commission Type Removed!" });
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: error.message });
   }
-}
+};
 
 const AddCommissionFee = async (req, res) => {
   try {
@@ -97,14 +96,13 @@ const DeleteCommissionFee = async (req, res) => {
 
     user.commission_info.fees.splice(index, 1);
 
-  await user.save();
-  res.json({ success: true, message: "Commission Fee Removed!" });
-    
+    await user.save();
+    res.json({ success: true, message: "Commission Fee Removed!" });
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: error.message });
   }
-}
+};
 
 const GetCommissionInfo = async (req, res) => {
   try {
@@ -122,4 +120,10 @@ const GetCommissionInfo = async (req, res) => {
   }
 };
 
-export { AddCommissionType, AddCommissionFee, GetCommissionInfo, DeleteCommissionType, DeleteCommissionFee };
+export {
+  AddCommissionType,
+  AddCommissionFee,
+  GetCommissionInfo,
+  DeleteCommissionType,
+  DeleteCommissionFee,
+};

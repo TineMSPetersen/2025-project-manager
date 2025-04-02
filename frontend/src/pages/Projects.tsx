@@ -42,21 +42,21 @@ const Projects = () => {
     const now = today.getTime();
     const diffTime = due - now;
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    return diffDays
-  }
+    return diffDays;
+  };
 
   const getLabelColor = (daysLeft: number) => {
     if (daysLeft <= 3) return "bg-red-400";
-    if (daysLeft <= 14) return "bg-yellow-200"
-    return "bg-blue-200"
-  }
+    if (daysLeft <= 14) return "bg-yellow-200";
+    return "bg-blue-200";
+  };
 
   const getPriorityColor = (priority: string) => {
     if (priority === "High") return "bg-gray-100";
-    if (priority === "Low") return "bg-gray-500"
-    if (priority === "Mid") return "bg-gray-300"
-    return "none"
-  }
+    if (priority === "Low") return "bg-gray-500";
+    if (priority === "Mid") return "bg-gray-300";
+    return "none";
+  };
 
   return (
     <>
@@ -64,56 +64,61 @@ const Projects = () => {
         {projectsData.map((item) => {
           const daysLeft = calculateDaysLeft(item.duedate);
           const labelColor = getLabelColor(daysLeft);
-          const priorityColor = getPriorityColor(item.priority)
+          const priorityColor = getPriorityColor(item.priority);
 
           return (
-          <NavLink key={item._id} to={`/project/${item._id}`}>
-            <div className="bg-[#4A416A] p-6 h-fit relative rounded-md flex flex-col gap-4">
-              <div>
-                <p className="text-2xl">{item.project_name}</p>
-                <p className="text-xl">{item.customer_name}</p>
-              </div>
-              <img
-                className="h-fit max-h-[150px] object-cover w-full"
-                src={item.images[0]}
-              />
-              <p className="h-20 overflow-clip">
-                {item.description.length > 70
-                  ? `${item.description.slice(0, 70)}...`
-                  : item.description}
-              </p>
-              <div className="flex gap-2 absolute bottom-4 right-6">
-                <div
-                  className={`${
-                    item.paid ? "bg-[#BBF491]" : "bg-[#FF3762]"
-                  } w-7 h-7 flex justify-center items-center outline-1 outline-black`}
-                >
-                  <img
-                    className="max-w-[70%] max-h-[70%] object-contain"
-                    src={assets.money}
-                    alt=""
-                  />
+            <NavLink key={item._id} to={`/project/${item._id}`}>
+              <div className="bg-[#4A416A] p-6 h-fit relative rounded-md flex flex-col gap-4">
+                <div>
+                  <p className="text-2xl">{item.project_name}</p>
+                  <p className="text-xl">{item.customer_name}</p>
                 </div>
-
-                {item.duedate != "" ? (
-                  <div className={`${labelColor} w-7 h-7 flex justify-center items-center outline-1 outline-black`}>
-                    <img src={assets.clock} />
+                <img
+                  className="h-fit max-h-[150px] object-cover w-full"
+                  src={item.images[0]}
+                />
+                <p className="h-20 overflow-clip">
+                  {item.description.length > 70
+                    ? `${item.description.slice(0, 70)}...`
+                    : item.description}
+                </p>
+                <div className="flex gap-2 absolute bottom-4 right-6">
+                  <div
+                    className={`${
+                      item.paid ? "bg-[#BBF491]" : "bg-[#FF3762]"
+                    } w-7 h-7 flex justify-center items-center outline-1 outline-black`}
+                  >
+                    <img
+                      className="max-w-[70%] max-h-[70%] object-contain"
+                      src={assets.money}
+                      alt=""
+                    />
                   </div>
-                ) : (
-                  ""
-                )}
 
-                {item.priority != "Default" ? (
-                  <div className={`${priorityColor} w-7 h-7 flex justify-center items-center outline-1 outline-black`}>
-                    <img src={assets.priority} />
-                  </div>
-                ) : (
-                  ""
-                )}
+                  {item.duedate != "" ? (
+                    <div
+                      className={`${labelColor} w-7 h-7 flex justify-center items-center outline-1 outline-black`}
+                    >
+                      <img src={assets.clock} />
+                    </div>
+                  ) : (
+                    ""
+                  )}
+
+                  {item.priority != "Default" ? (
+                    <div
+                      className={`${priorityColor} w-7 h-7 flex justify-center items-center outline-1 outline-black`}
+                    >
+                      <img src={assets.priority} />
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                </div>
               </div>
-            </div>
-          </NavLink>
-)})}
+            </NavLink>
+          );
+        })}
       </div>
       <AddButton />
     </>

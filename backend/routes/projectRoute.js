@@ -36,10 +36,6 @@ projectRouter.post("/listarchive", authUser, getArchiveProjects);
 projectRouter.post("/delete", authUser, deleteProject);
 projectRouter.post("/changepriority", authUser, changePriority);
 projectRouter.post("/changepayment", authUser, changePaid);
-projectRouter.post(
-  "/update",
-  authUser,
-  updateProject
-);
+projectRouter.post("/update", authUser, updateProject);
 
 export default projectRouter;

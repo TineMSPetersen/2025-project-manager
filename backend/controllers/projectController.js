@@ -74,9 +74,11 @@ const updateProject = async (req, res) => {
       notes,
     } = req.body;
 
-    
     if (typeof notes === "string") {
-      notes = notes.split(";").map((note) => note.trim()).filter(Boolean);
+      notes = notes
+        .split(";")
+        .map((note) => note.trim())
+        .filter(Boolean);
     }
 
     await projectModel.findByIdAndUpdate(
@@ -246,5 +248,5 @@ export {
   deleteProject,
   changePriority,
   changePaid,
-  updateProject
+  updateProject,
 };

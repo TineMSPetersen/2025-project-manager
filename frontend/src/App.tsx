@@ -13,7 +13,7 @@ import { AppContext } from "./context/AppContext";
 import EditProject from "./pages/EditProject";
 
 const App = () => {
-  const { token } = useContext(AppContext)
+  const { token } = useContext(AppContext);
 
   return (
     <>
@@ -26,7 +26,10 @@ const App = () => {
               <Route path="/" element={<Projects />} />
               <Route path="/projects" element={<Projects />} />
               <Route path="/project/:projectId" element={<Project />} />
-              <Route path="/project/:projectId/edit" element={<EditProject />} />
+              <Route
+                path="/project/:projectId/edit"
+                element={<EditProject />}
+              />
               <Route path="/pricecalculator" element={<PriceCalculator />} />
               <Route path="/newproject" element={<NewProject />} />
               <Route path="/login" element={<Login />} />

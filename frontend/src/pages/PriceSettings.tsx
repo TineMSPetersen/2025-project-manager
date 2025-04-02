@@ -95,34 +95,40 @@ const PriceSettings = () => {
   };
 
   const deleteCommissionType = async (index: number) => {
-
     try {
-      await axios.post(backendUrl + '/api/commission/removetype', {index}, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      await axios.post(
+        backendUrl + "/api/commission/removetype",
+        { index },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       fetchCommissionInfo();
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const deleteCommissionFee = async (index: number) => {
-
     try {
-      await axios.post(backendUrl + '/api/commission/removefee', {index}, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      await axios.post(
+        backendUrl + "/api/commission/removefee",
+        { index },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       fetchCommissionInfo();
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   return (
     <div>
@@ -137,7 +143,12 @@ const PriceSettings = () => {
                   <p>
                     {item.label} - {commissionInfo.currency} {item.value}
                   </p>
-                  <img onClick={() => deleteCommissionType(index)} src={assets.close} className="w-4 h-4 cursor-pointer" alt="close" />
+                  <img
+                    onClick={() => deleteCommissionType(index)}
+                    src={assets.close}
+                    className="w-4 h-4 cursor-pointer"
+                    alt="close"
+                  />
                 </div>
               ))}
           </div>
@@ -193,7 +204,12 @@ const PriceSettings = () => {
                   <p>
                     {item.label} - {commissionInfo.currency} {item.value}
                   </p>
-                  <img onClick={() => deleteCommissionFee(index)} src={assets.close} className="w-4 h-4 cursor-pointer" alt="close" />
+                  <img
+                    onClick={() => deleteCommissionFee(index)}
+                    src={assets.close}
+                    className="w-4 h-4 cursor-pointer"
+                    alt="close"
+                  />
                 </div>
               ))}
           </div>

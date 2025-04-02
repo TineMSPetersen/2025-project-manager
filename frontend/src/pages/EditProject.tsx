@@ -26,12 +26,12 @@ const EditProject = () => {
       .filter((note) => note.length > 0);
   };
 
-  const onSubmitHandler = async (e) => {
+  const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-  
+
     try {
       const formattedNotes = parseNotes(notes);
-  
+
       const form = {
         projectId,
         customer_name,
@@ -41,7 +41,7 @@ const EditProject = () => {
         description,
         notes: formattedNotes,
       };
-  
+
       const response = await axios.post(
         backendUrl + "/api/project/update",
         form,
@@ -52,7 +52,7 @@ const EditProject = () => {
           },
         }
       );
-  
+
       if (response.data.success) {
         navigate(`/project/${projectData?._id}`);
       } else {
@@ -77,7 +77,6 @@ const EditProject = () => {
 
       if (response.data.success) {
         setProjectData(response.data.project);
-
       } else {
         console.log(response.data.message);
       }
@@ -87,19 +86,19 @@ const EditProject = () => {
   };
 
   useEffect(() => {
-    fetchProjectInfo()
-  }, [])
+    fetchProjectInfo();
+  }, []);
 
-  useEffect( () => {
+  useEffect(() => {
     if (projectData) {
       setCustomer_name(projectData.customer_name || "");
       setCustomer_email(projectData.customer_email || "");
       setCustomer_phone(projectData.customer_phone || "");
       setProject_name(projectData.project_name || "");
       setDescription(projectData.description || "");
-      setNotes(projectData.notes ? projectData.notes.join("; ") : ""); 
+      setNotes(projectData.notes ? projectData.notes.join("; ") : "");
     }
-  }, [projectData])
+  }, [projectData]);
 
   return (
     <div>

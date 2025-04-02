@@ -144,19 +144,17 @@ const Project = () => {
     const now = today.getTime();
     const diffTime = due - now;
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    return diffDays
-  }
+    return diffDays;
+  };
 
   const getLabelColor = (daysLeft: number) => {
     if (daysLeft <= 3) return "bg-red-400";
-    if (daysLeft <= 14) return "bg-yellow-200"
-    return "bg-blue-200"
-  }
+    if (daysLeft <= 14) return "bg-yellow-200";
+    return "bg-blue-200";
+  };
 
-    const daysLeft = calculateDaysLeft(projectData?.duedate || "");
-    const labelColor = getLabelColor(daysLeft);
-
-  
+  const daysLeft = calculateDaysLeft(projectData?.duedate || "");
+  const labelColor = getLabelColor(daysLeft);
 
   return (
     <div>
@@ -173,10 +171,10 @@ const Project = () => {
                   <div
                     onClick={() => {
                       setCompleteOpen(false);
-                    setOptionsOpen(false);
-                    setDueDateOpen(false);
-                    setPriorityOpen(true);
-                    setPriceOpen(false)
+                      setOptionsOpen(false);
+                      setDueDateOpen(false);
+                      setPriorityOpen(true);
+                      setPriceOpen(false);
                     }}
                     className={`
       text-black w-fit px-3 py-2 text-xl
@@ -193,26 +191,32 @@ const Project = () => {
                   </div>
                 ) : null}
                 {projectData.paid ? (
-                  <div onClick={() => {
-                    setCompleteOpen(false);
-                    setOptionsOpen(false);
-                    setDueDateOpen(false);
-                    setPriorityOpen(false);
-                    setPriceOpen(true)
-                  }} className="bg-[#BBF491] text-black w-fit px-3 py-2 text-xl">
+                  <div
+                    onClick={() => {
+                      setCompleteOpen(false);
+                      setOptionsOpen(false);
+                      setDueDateOpen(false);
+                      setPriorityOpen(false);
+                      setPriceOpen(true);
+                    }}
+                    className="bg-[#BBF491] text-black w-fit px-3 py-2 text-xl"
+                  >
                     PAID{" "}
                     {projectData.amount_paid
                       ? "- $" + projectData.amount_paid
                       : ""}
                   </div>
                 ) : (
-                  <div onClick={() => {
-                    setCompleteOpen(false);
-                    setOptionsOpen(false);
-                    setDueDateOpen(false);
-                    setPriorityOpen(false);
-                    setPriceOpen(true)
-                  }} className="bg-[#FF3762] text-black w-fit px-3 py-2 text-xl">
+                  <div
+                    onClick={() => {
+                      setCompleteOpen(false);
+                      setOptionsOpen(false);
+                      setDueDateOpen(false);
+                      setPriorityOpen(false);
+                      setPriceOpen(true);
+                    }}
+                    className="bg-[#FF3762] text-black w-fit px-3 py-2 text-xl"
+                  >
                     UNPAID{" "}
                     {projectData.amount_paid
                       ? "- $" + projectData.amount_paid
@@ -223,12 +227,12 @@ const Project = () => {
                   <div
                     onClick={() => {
                       setCompleteOpen(false);
-                    setOptionsOpen(false);
-                    setDueDateOpen(true);
-                    setPriorityOpen(false);
-                    setPriceOpen(false)
+                      setOptionsOpen(false);
+                      setDueDateOpen(true);
+                      setPriorityOpen(false);
+                      setPriceOpen(false);
                     }}
-                    className={ `${labelColor} text-black w-fit px-3 py-2 text-xl flex gap-2 items-center`}
+                    className={`${labelColor} text-black w-fit px-3 py-2 text-xl flex gap-2 items-center`}
                   >
                     <img
                       className="max-w-[70%] max-h-[70%] object-contain"
@@ -296,9 +300,12 @@ const Project = () => {
       {optionsOpen ? (
         <div className="bg-linear-to-b from-[#321234] to-[#140D2B] absolute right-0 bottom-0 rounded-l-md rounded-t-md pt-15 pb-20 px-15 z-20">
           <ul className="flex flex-col gap-8">
-            <li onClick={() => navigate(`/project/${projectId}/edit`) } className="flex gap-3">
-            <img className="max-h-[28px]" src={assets.settings} alt="" />
-            <p className="text-lg">Edit Project Details</p>
+            <li
+              onClick={() => navigate(`/project/${projectId}/edit`)}
+              className="flex gap-3"
+            >
+              <img className="max-h-[28px]" src={assets.settings} alt="" />
+              <p className="text-lg">Edit Project Details</p>
             </li>
             <hr />
             <li
@@ -307,7 +314,7 @@ const Project = () => {
                 setOptionsOpen(false);
                 setDueDateOpen(false);
                 setPriorityOpen(false);
-                setPriceOpen(false)
+                setPriceOpen(false);
               }}
               className="flex gap-3"
             >

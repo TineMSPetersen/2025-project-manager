@@ -35,18 +35,22 @@ const Archive = () => {
     fetchArchiveData();
   }, []);
 
-  const removeProject = async ( projectId: string ) => {
+  const removeProject = async (projectId: string) => {
     try {
-      await axios.post(backendUrl + '/api/project/delete', {projectId}, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      fetchArchiveData()
+      await axios.post(
+        backendUrl + "/api/project/delete",
+        { projectId },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      fetchArchiveData();
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   return (
     <div>
@@ -63,24 +67,26 @@ const Archive = () => {
         <hr className="mb-5" />
         {archiveData.map((item) => (
           <div>
-          
             <div className="grid grid-cols-5">
               <p>{item.project_name}</p>
               <p>{item.customer_name}</p>
               <p>USD {item.amount_paid}</p>
-              <p>{new Date(Number(item.duedate)).toLocaleDateString(
-                        "en-US",
-                        {
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric",
-                        }
-                      )}</p>
-              <img onClick={() => removeProject(item._id)} className="w-4" src={assets.close} alt="delete" />
+              <p>
+                {new Date(Number(item.duedate)).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </p>
+              <img
+                onClick={() => removeProject(item._id)}
+                className="w-4"
+                src={assets.close}
+                alt="delete"
+              />
             </div>
             <hr className="text-gray-700 my-5" />
-            <NavLink to={`/project/${item._id}`}>
-          </NavLink>
+            <NavLink to={`/project/${item._id}`}></NavLink>
           </div>
         ))}
       </div>

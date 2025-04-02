@@ -5,53 +5,57 @@ import { IProject } from "../types";
 import { NavLink } from "react-router-dom";
 
 const Deadlines = () => {
-  const { backendUrl, token } = useContext(AppContext)
+  const { backendUrl, token } = useContext(AppContext);
   const today = new Date();
-  const [ projectData, setProjectData ]= useState<IProject[]>([]);
+  const [projectData, setProjectData] = useState<IProject[]>([]);
 
   useEffect(() => {
-    fetchProjectData()
-  }, [])
+    fetchProjectData();
+  }, []);
 
   const fetchProjectData = async () => {
     try {
-      const response = await axios.post(backendUrl + '/api/project/list', {}, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      const response = await axios.post(
+        backendUrl + "/api/project/list",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (response.data.success) {
-        setProjectData(response.data.projectsData)
-        console.log(projectData)
+        setProjectData(response.data.projectsData);
+        console.log(projectData);
       } else {
         console.log(response.data.message);
       }
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const calculateDaysLeft = (dueDate: string) => {
     const due = new Date(dueDate).getTime();
     const now = today.getTime();
     const diffTime = due - now;
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    return diffDays
-  }
+    return diffDays;
+  };
 
   const getLabelColor = (daysLeft: number) => {
     if (daysLeft <= 3) return "bg-red-400";
-    if (daysLeft <= 14) return "bg-yellow-200"
-    return "bg-blue-200"
-  }
+    if (daysLeft <= 14) return "bg-yellow-200";
+    return "bg-blue-200";
+  };
 
   const getPriorityColor = (priority: string) => {
     if (priority === "High") return "bg-gray-100";
-    if (priority === "Low") return "bg-gray-500"
-    if (priority === "Mid") return "bg-gray-300"
-    return "none"
-  }
+    if (priority === "Low") return "bg-gray-500";
+    if (priority === "Mid") return "bg-gray-300";
+    return "none";
+  };
 
   const groupProjects = () => {
     const week: IProject[] = [];
@@ -59,19 +63,19 @@ const Deadlines = () => {
     const later: IProject[] = [];
 
     projectData.forEach((project) => {
-      const daysLeft = calculateDaysLeft(project.duedate)
+      const daysLeft = calculateDaysLeft(project.duedate);
 
       if (daysLeft <= 7) {
-        week.push(project)
+        week.push(project);
       } else if (daysLeft <= 30) {
-        month.push(project)
+        month.push(project);
       } else {
-        later.push(project)
+        later.push(project);
       }
-    })
+    });
 
-    return { week, month, later }
-  }
+    return { week, month, later };
+  };
 
   const { week, month, later } = groupProjects();
 
@@ -84,7 +88,7 @@ const Deadlines = () => {
         {group.map((item, index) => {
           const daysLeft = calculateDaysLeft(item.duedate);
           const labelColor = getLabelColor(daysLeft);
-          const priorityColor = getPriorityColor(item.priority)
+          const priorityColor = getPriorityColor(item.priority);
           const dueDateObj = new Date(item.duedate);
           const dueDateFormatted = dueDateObj.toLocaleDateString("en-US", {
             day: "2-digit",
@@ -94,29 +98,28 @@ const Deadlines = () => {
 
           return (
             <NavLink to={`/project/${item._id}`} key={index}>
-            <div key={index} className="grid grid-cols-5 items-center mb-2">
-              <div className="flex gap-1">
-              <p
-                className={`${labelColor} mr-2 px-2 py-1 rounded-xl text-black w-30 text-center`}
-              >
-                {daysLeft <= 0
-                  ? "Due today"
-                  : `${daysLeft} ${daysLeft === 1 ? "Day" : "Days"} Left`}
-              </p>
-              <p
-                className={`${priorityColor} mr-2 px-2 py-1 rounded-xl text-black text-center`}
-              >
-                Priority: {item.priority}
-              </p>
+              <div key={index} className="grid grid-cols-5 items-center mb-2">
+                <div className="flex gap-1">
+                  <p
+                    className={`${labelColor} mr-2 px-2 py-1 rounded-xl text-black w-30 text-center`}
+                  >
+                    {daysLeft <= 0
+                      ? "Due today"
+                      : `${daysLeft} ${daysLeft === 1 ? "Day" : "Days"} Left`}
+                  </p>
+                  <p
+                    className={`${priorityColor} mr-2 px-2 py-1 rounded-xl text-black text-center`}
+                  >
+                    Priority: {item.priority}
+                  </p>
+                </div>
+                <p>{dueDateFormatted}</p>
+                <p>{item.project_name}</p>
+                <p>{item.customer_name}</p>
+                <p>{item.paid ? "Paid" : "Unpaid"}</p>
               </div>
-              <p>{dueDateFormatted}</p>
-              <p>{item.project_name}</p>
-              <p>{item.customer_name}</p>
-              <p>{item.paid ? "Paid" : "Unpaid"}</p>
-            </div>
-            <hr className="text-gray-700 my-5" />
+              <hr className="text-gray-700 my-5" />
             </NavLink>
-            
           );
         })}
       </div>
