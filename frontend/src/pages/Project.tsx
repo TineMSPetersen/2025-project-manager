@@ -10,11 +10,7 @@ const Project = () => {
   const { projectId } = useParams();
   const [projectData, setProjectData] = useState<IProject | null>(null);
 
-  const [optionsOpen, setOptionsOpen] = useState(false);
-  const [completeOpen, setCompleteOpen] = useState(false);
-  const [dueDateOpen, setDueDateOpen] = useState(false);
-  const [priorityOpen, setPriorityOpen] = useState(false);
-  const [priceOpen, setPriceOpen] = useState(false);
+  const [menu, setMenu] = useState("closed")
 
   const [newDueDate, setNewDueDate] = useState("");
   const [newPriority, setNewPriority] = useState("");
@@ -83,7 +79,7 @@ const Project = () => {
       );
 
       if (response.data.success) {
-        setDueDateOpen(false);
+        setMenu("closed")
         fetchProjectInfo();
       }
     } catch (error) {
@@ -106,7 +102,7 @@ const Project = () => {
       );
 
       if (response.data.success) {
-        setPriorityOpen(false);
+        setMenu("closed")
         fetchProjectInfo();
       }
     } catch (error) {
@@ -133,7 +129,7 @@ const Project = () => {
       );
 
       if (response.data.success) {
-        setPriceOpen(false);
+        setMenu("closed")
         fetchProjectInfo();
       }
     } catch (error) {}
@@ -170,11 +166,7 @@ const Project = () => {
                 {projectData.priority ? (
                   <div
                     onClick={() => {
-                      setCompleteOpen(false);
-                      setOptionsOpen(false);
-                      setDueDateOpen(false);
-                      setPriorityOpen(true);
-                      setPriceOpen(false);
+                      setMenu("priority")
                     }}
                     className={`
       text-black w-fit px-3 py-2 text-xl
@@ -193,11 +185,7 @@ const Project = () => {
                 {projectData.paid ? (
                   <div
                     onClick={() => {
-                      setCompleteOpen(false);
-                      setOptionsOpen(false);
-                      setDueDateOpen(false);
-                      setPriorityOpen(false);
-                      setPriceOpen(true);
+                      setMenu("price")
                     }}
                     className="bg-[#BBF491] text-black w-fit px-3 py-2 text-xl"
                   >
@@ -209,11 +197,7 @@ const Project = () => {
                 ) : (
                   <div
                     onClick={() => {
-                      setCompleteOpen(false);
-                      setOptionsOpen(false);
-                      setDueDateOpen(false);
-                      setPriorityOpen(false);
-                      setPriceOpen(true);
+                      setMenu("price")
                     }}
                     className="bg-[#FF3762] text-black w-fit px-3 py-2 text-xl"
                   >
@@ -226,11 +210,7 @@ const Project = () => {
                 {projectData && projectData.duedate ? (
                   <div
                     onClick={() => {
-                      setCompleteOpen(false);
-                      setOptionsOpen(false);
-                      setDueDateOpen(true);
-                      setPriorityOpen(false);
-                      setPriceOpen(false);
+                      setMenu("duedate")
                     }}
                     className={`${labelColor} text-black w-fit px-3 py-2 text-xl flex gap-2 items-center`}
                   >
@@ -297,7 +277,7 @@ const Project = () => {
         <p>Project not found</p>
       )}
 
-      {optionsOpen ? (
+      {menu === "open" ? (
         <div className="bg-linear-to-b from-[#321234] to-[#140D2B] absolute right-0 bottom-0 rounded-l-md rounded-t-md pt-15 pb-20 px-15 z-20">
           <ul className="flex flex-col gap-8">
             <li
@@ -310,11 +290,7 @@ const Project = () => {
             <hr />
             <li
               onClick={() => {
-                setCompleteOpen(true);
-                setOptionsOpen(false);
-                setDueDateOpen(false);
-                setPriorityOpen(false);
-                setPriceOpen(false);
+                setMenu("complete")
               }}
               className="flex gap-3"
             >
@@ -324,11 +300,7 @@ const Project = () => {
             <hr />
             <li
               onClick={() => {
-                setCompleteOpen(false);
-                setOptionsOpen(false);
-                setPriorityOpen(false);
-                setDueDateOpen(true);
-                setPriceOpen(false);
+                setMenu("duedate")
               }}
               className="flex gap-3"
             >
@@ -338,11 +310,7 @@ const Project = () => {
             <hr />
             <li
               onClick={() => {
-                setCompleteOpen(false);
-                setOptionsOpen(false);
-                setDueDateOpen(false);
-                setPriorityOpen(true);
-                setPriceOpen(false);
+                setMenu("priority")
               }}
               className="flex gap-3"
             >
@@ -353,7 +321,7 @@ const Project = () => {
           </ul>
 
           <img
-            onClick={() => setOptionsOpen(false)}
+            onClick={() => setMenu("closed")}
             className="absolute bottom-5 right-5"
             src={assets.close}
             alt=""
@@ -362,17 +330,17 @@ const Project = () => {
       ) : null}
 
       <div
-        onClick={() => setOptionsOpen(true)}
+        onClick={() => setMenu("open")}
         className="bg-linear-to-b from-[#FF0036] to-[#321234] p-4 rounded-full outline-2 outline-[#FF0036] absolute bottom-5 right-5 z-10"
       >
         <img width={50} src={assets.options} alt="" />
       </div>
 
-      {completeOpen ? (
+      {menu === "complete" ? (
         <div className="bg-gradient-to-b from-[#321234] to-[#140D2B] absolute m-auto left-0 right-0 z-30 p-10 min-w-[400px] max-w-[600px] top-[30%] text-center rounded-md">
           <div className="relative">
             <img
-              onClick={() => setCompleteOpen(false)}
+              onClick={() => setMenu("false")}
               src={assets.close}
               className="w-5 h-5 absolute right-0 top-0"
             />
@@ -387,7 +355,7 @@ const Project = () => {
               <p className="mb-2">Is the project complete?</p>
               <button
                 onClick={() => {
-                  setCompleteOpen(false);
+                  setMenu("closed")
                   markProjectComplete();
                 }}
                 className="bg-[#BBF491] rounded-md text-black py-2 px-5 flex gap-2 items-center justify-center"
@@ -400,11 +368,11 @@ const Project = () => {
         </div>
       ) : null}
 
-      {dueDateOpen ? (
+      {menu === "duedate" ? (
         <div className="bg-gradient-to-b from-[#321234] to-[#140D2B] absolute m-auto left-0 right-0 z-30 p-10 min-w-[400px] max-w-[600px] top-[30%] text-center rounded-md">
           <div className="relative">
             <img
-              onClick={() => setDueDateOpen(false)}
+              onClick={() => setMenu("closed")}
               src={assets.close}
               className="w-5 h-5 absolute right-0 top-0"
             />
@@ -446,11 +414,11 @@ const Project = () => {
         </div>
       ) : null}
 
-      {priorityOpen ? (
+      {menu === "priority" ? (
         <div className="bg-gradient-to-b from-[#321234] to-[#140D2B] absolute m-auto left-0 right-0 z-30 p-10 min-w-[400px] max-w-[600px] top-[30%] text-center rounded-md">
           <div className="relative">
             <img
-              onClick={() => setPriorityOpen(false)}
+              onClick={() => setMenu("closed")}
               src={assets.close}
               className="w-5 h-5 absolute right-0 top-0"
             />
@@ -516,11 +484,11 @@ const Project = () => {
         </div>
       ) : null}
 
-      {priceOpen ? (
+      {menu === "price" ? (
         <div className="bg-gradient-to-b from-[#321234] to-[#140D2B] absolute m-auto left-0 right-0 z-30 p-10 min-w-[400px] max-w-[600px] top-[30%] text-center rounded-md">
           <div className="relative">
             <img
-              onClick={() => setPriceOpen(false)}
+              onClick={() => setMenu("closed")}
               src={assets.close}
               className="w-5 h-5 absolute right-0 top-0"
             />
