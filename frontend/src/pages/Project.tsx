@@ -254,7 +254,7 @@ const Project = () => {
               </div>
             </div>
           </div>
-          <div className="flex">
+          <div className="flex flex-wrap gap-5">
             {projectData && projectData.images
               ? projectData.images.map((item) => (
                   <img className="max-h-[200px]" src={item} />
