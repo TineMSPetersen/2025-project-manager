@@ -11,6 +11,7 @@ import Deadlines from "./pages/Deadlines";
 import { useContext } from "react";
 import { AppContext } from "./context/AppContext";
 import EditProject from "./pages/EditProject";
+import { ToastContainer } from 'react-toastify';
 
 const App = () => {
   const { token } = useContext(AppContext);
@@ -37,6 +38,17 @@ const App = () => {
               <Route path="/archive" element={<Archive />} />
               <Route path="/deadlines" element={<Deadlines />} />
             </Routes>
+            <ToastContainer
+            position="bottom-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick={false}
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light" />
           </div>
         </div>
       ) : (

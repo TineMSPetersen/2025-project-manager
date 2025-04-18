@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../context/AppContext";
 import axios from "axios";
 import { IProject } from "../types";
+import { toast } from "react-toastify";
 
 const Projects = () => {
   const { backendUrl, token } = useContext(AppContext);
@@ -27,9 +28,15 @@ const Projects = () => {
         setProjectsData(response.data.projectsData);
       } else {
         console.log(response.data.message);
+        toast.error(response.data.message)
       }
     } catch (error) {
       console.log(error);
+      if (error instanceof Error) {
+              toast.error(error.message);
+            } else {
+              toast.error("An unknown error occurred");
+            }
     }
   };
 

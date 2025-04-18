@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../context/AppContext";
 import { IProject } from "../types";
 import { NavLink } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Deadlines = () => {
   const { backendUrl, token } = useContext(AppContext);
@@ -27,12 +28,17 @@ const Deadlines = () => {
 
       if (response.data.success) {
         setProjectData(response.data.projectsData);
-        console.log(projectData);
       } else {
         console.log(response.data.message);
+        toast.error(response.data.message)
       }
     } catch (error) {
       console.log(error);
+      if (error instanceof Error) {
+              toast.error(error.message);
+            } else {
+              toast.error("An unknown error occurred");
+            }
     }
   };
 

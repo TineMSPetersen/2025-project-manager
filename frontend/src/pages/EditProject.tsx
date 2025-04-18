@@ -3,6 +3,7 @@ import { AppContext } from "../context/AppContext";
 import { IProject } from "../types";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const EditProject = () => {
   const { backendUrl, token, navigate } = useContext(AppContext);
@@ -55,11 +56,18 @@ const EditProject = () => {
 
       if (response.data.success) {
         navigate(`/project/${projectData?._id}`);
+        toast.success(response.data.message)
       } else {
         console.log(response.data.message);
+        toast.error(response.data.message)
       }
     } catch (error) {
       console.log(error);
+      if (error instanceof Error) {
+              toast.error(error.message);
+            } else {
+              toast.error("An unknown error occurred");
+            }
     }
   };
 
@@ -82,6 +90,11 @@ const EditProject = () => {
       }
     } catch (error) {
       console.log(error);
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("An unknown error occurred");
+      }
     }
   };
 

@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 import axios from "axios";
 import { ICommissionInfo } from "../types";
+import { toast } from "react-toastify";
 
 const PriceCalculator = () => {
   const { backendUrl, token } = useContext(AppContext);
@@ -37,9 +38,15 @@ const PriceCalculator = () => {
         setCommissionInfo(info);
       } else {
         console.log(response.data.message);
+        toast.error(response.data.message)
       }
     } catch (error) {
       console.log(error);
+      if (error instanceof Error) {
+              toast.error(error.message);
+            } else {
+              toast.error("An unknown error occurred");
+            }
     }
   };
 

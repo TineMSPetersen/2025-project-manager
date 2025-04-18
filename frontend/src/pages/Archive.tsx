@@ -4,6 +4,7 @@ import { IProject } from "../types";
 import { AppContext } from "../context/AppContext";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Archive = () => {
   const { backendUrl, token } = useContext(AppContext);
@@ -25,9 +26,15 @@ const Archive = () => {
         setArchiveData(response.data.archiveData);
       } else {
         console.log(response.data.message);
+        toast.error(response.data.message)
       }
     } catch (error) {
       console.log(error);
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("An unknown error occurred");
+      }
     }
   };
 
@@ -37,7 +44,7 @@ const Archive = () => {
 
   const removeProject = async (projectId: string) => {
     try {
-      await axios.post(
+      const response = await axios.post(
         backendUrl + "/api/project/delete",
         { projectId },
         {
@@ -46,9 +53,18 @@ const Archive = () => {
           },
         }
       );
+
+      if (response.data.success) {
+        toast.success("Project deleted")
+      }
       fetchArchiveData();
     } catch (error) {
       console.log(error);
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("An unknown error occurred");
+      }
     }
   };
 

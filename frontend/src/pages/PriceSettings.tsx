@@ -3,6 +3,7 @@ import { AppContext } from "../context/AppContext";
 import axios from "axios";
 import { ICommissionInfo } from "../types";
 import { assets } from "../assets/assets";
+import { toast } from "react-toastify";
 
 const PriceSettings = () => {
   const { backendUrl, token } = useContext(AppContext);
@@ -38,9 +39,15 @@ const PriceSettings = () => {
         setCommissionInfo(info);
       } else {
         console.log(response.data.message);
+        toast.error(response.data.message);
       }
     } catch (error) {
       console.log(error);
+      if (error instanceof Error) {
+              toast.error(error.message);
+            } else {
+              toast.error("An unknown error occurred");
+            }
     }
   };
 
@@ -52,7 +59,7 @@ const PriceSettings = () => {
     e.preventDefault();
 
     try {
-      await axios.post(
+      const response = await axios.post(
         backendUrl + "/api/commission/newtype",
         { label: typeLabel, value: typeValue, add_character: extrachar },
         {
@@ -62,12 +69,25 @@ const PriceSettings = () => {
         }
       );
 
+      if (response.data.success) {
+      toast.success(response.data.message)
       setTypeLabel("");
       setTypeValue(0);
       setExtrachar(0);
       fetchCommissionInfo();
+      } else {
+        console.log(response.data.message)
+        toast.error(response.data.message)
+      }
+
+      
     } catch (error) {
       console.log(error);
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("An unknown error occurred");
+      }
     }
   };
 
@@ -75,7 +95,7 @@ const PriceSettings = () => {
     e.preventDefault();
 
     try {
-      await axios.post(
+      const response = await axios.post(
         backendUrl + "/api/commission/newfee",
         { type: feeType, label: feeLabel, value: feeValue },
         {
@@ -85,18 +105,31 @@ const PriceSettings = () => {
         }
       );
 
+      if (response.data.success) {
+        toast.success(response.data.message)
       fetchCommissionInfo();
       setFeeLabel("");
       setFeeValue(0);
       setFeeType("flat");
+      } else {
+        console.log(response.data.message)
+        toast.error(response.data.message)
+      }
+
+      
     } catch (error) {
       console.log(error);
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("An unknown error occurred");
+      }
     }
   };
 
   const deleteCommissionType = async (index: number) => {
     try {
-      await axios.post(
+      const response = await axios.post(
         backendUrl + "/api/commission/removetype",
         { index },
         {
@@ -106,9 +139,21 @@ const PriceSettings = () => {
         }
       );
 
-      fetchCommissionInfo();
+      if (response.data.success) {
+        toast.success(response.data.message)
+        fetchCommissionInfo();
+      } else {
+        console.log(response.data.message)
+        toast.error(response.data.message)
+      }
+      
     } catch (error) {
       console.log(error);
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("An unknown error occurred");
+      }
     }
   };
 
@@ -127,6 +172,11 @@ const PriceSettings = () => {
       fetchCommissionInfo();
     } catch (error) {
       console.log(error);
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("An unknown error occurred");
+      }
     }
   };
 

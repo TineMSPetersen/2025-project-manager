@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { assets } from "../assets/assets";
 import axios from "axios";
 import { AppContext } from "../context/AppContext";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [state, setState] = useState("Login");
@@ -28,6 +29,7 @@ const Login = () => {
           navigate("/");
         } else {
           console.error(response.data.message);
+          toast.error(response.data.message)
         }
       } else {
         const response = await axios.post(backendUrl + "/api/user/loginuser", {
@@ -41,9 +43,17 @@ const Login = () => {
           navigate("/");
         } else {
           console.error(response.data.message);
+          toast.error(response.data.message)
         }
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error)
+      if (error instanceof Error) {
+              toast.error(error.message);
+            } else {
+              toast.error("An unknown error occurred");
+            }
+    }
   };
 
   return (

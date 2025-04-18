@@ -1,9 +1,10 @@
-import { useParams } from "react-router-dom";
+import { data, useParams } from "react-router-dom";
 import { assets } from "../assets/assets";
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../context/AppContext";
 import axios from "axios";
 import { IProject } from "../types";
+import { toast } from "react-toastify";
 
 const Project = () => {
   const { backendUrl, token, navigate } = useContext(AppContext);
@@ -38,9 +39,15 @@ const Project = () => {
         setProjectData(response.data.project);
       } else {
         console.log(response.data.message);
+        toast.error(response.data.message)
       }
     } catch (error) {
       console.log(error);
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("An unknown error occurred");
+      }
     }
   };
 
@@ -50,7 +57,7 @@ const Project = () => {
 
   const markProjectComplete = async () => {
     try {
-      await axios.post(
+      const response = await axios.post(
         backendUrl + "/api/project/markcomplete",
         { projectId },
         {
@@ -59,8 +66,23 @@ const Project = () => {
           },
         }
       );
+
+      if (response.data.success) {
+        toast.success(response.data.message)
+        setMenu("closed")
+        fetchProjectInfo();
+      } else {
+        console.log(response.data.message)
+        toast.error(response.data.message)
+      }
+
     } catch (error) {
       console.log(error);
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("An unknown error occurred");
+      }
     }
   };
 
@@ -79,11 +101,20 @@ const Project = () => {
       );
 
       if (response.data.success) {
+        toast.success(response.data.message)
         setMenu("closed")
         fetchProjectInfo();
+      } else {
+        console.log(response.data.message)
+        toast.error(response.data.message)
       }
     } catch (error) {
       console.log(error);
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("An unknown error occurred");
+      }
     }
   };
 
@@ -102,11 +133,20 @@ const Project = () => {
       );
 
       if (response.data.success) {
+        toast.success(response.data.message)
         setMenu("closed")
         fetchProjectInfo();
+      } else {
+        console.log(response.data.message)
+        toast.error(response.data.message)
       }
     } catch (error) {
       console.log(error);
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("An unknown error occurred");
+      }
     }
   };
 
@@ -129,10 +169,21 @@ const Project = () => {
       );
 
       if (response.data.success) {
+        toast.success(response.data.message)
         setMenu("closed")
         fetchProjectInfo();
+      } else {
+        console.log(response.data.message)
+        toast.error(response.data.message)
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error)
+      if (error instanceof Error) {
+              toast.error(error.message);
+            } else {
+              toast.error("An unknown error occurred");
+            }
+    }
   };
 
   const calculateDaysLeft = (dueDate: string) => {
