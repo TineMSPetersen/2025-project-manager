@@ -186,7 +186,7 @@ const NewProject = () => {
 
         <div>
           <p className="text-2xl mb-4">Upload image:</p>
-          <div className="flex gap-2">
+          <div className="flex flex-col md:flex-row gap-2">
             <label htmlFor="image1">
               <img
                 className="w-20"

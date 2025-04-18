@@ -156,13 +156,13 @@ const Project = () => {
     <div>
       {projectData ? (
         <div className="flex flex-col gap-10">
-          <div className="flex justify-between">
+          <div className="md:flex justify-between">
             <div className="flex flex-col gap-4">
               <h1 className="text-5xl">{projectData.project_name}</h1>
               <h2 className="text-2xl">{projectData.customer_name}</h2>
             </div>
             <div className="flex flex-col gap-4">
-              <div className="flex gap-4 h-fit">
+              <div className="flex flex-col md:flex-row gap-4 h-fit">
                 {projectData.priority ? (
                   <div
                     onClick={() => {
@@ -232,7 +232,7 @@ const Project = () => {
                 ) : null}
               </div>
 
-              <div className="flex flex-col items-end">
+              <div className="flex flex-col md:items-end">
                 {projectData.customer_email ? (
                   <div className="flex gap-2 items-center">
                     <p>{projectData.customer_email}</p>

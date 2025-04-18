@@ -21,7 +21,7 @@ const App = () => {
         <div className="bg-black w-full h-screen text-white grid grid-cols-[1fr_5fr]">
           <Sidebar />
 
-          <div className="px-20 py-10 overflow-y-auto h-screen">
+          <div className="px-2 md:px-20 py-10 overflow-y-auto h-screen">
             <Routes>
               <Route path="/" element={<Projects />} />
               <Route path="/projects" element={<Projects />} />
