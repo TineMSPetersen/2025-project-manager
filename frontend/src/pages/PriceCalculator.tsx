@@ -6,6 +6,7 @@ import axios from "axios";
 import { ICommissionInfo } from "../types";
 import { toast } from "react-toastify";
 import Invoice from "../components/Invoice";
+import Invoice2 from "../components/invoice/invoice2";
 
 const PriceCalculator = () => {
   const { backendUrl, token } = useContext(AppContext);
@@ -40,15 +41,15 @@ const PriceCalculator = () => {
         setCommissionInfo(info);
       } else {
         console.log(response.data.message);
-        toast.error(response.data.message)
+        toast.error(response.data.message);
       }
     } catch (error) {
       console.log(error);
       if (error instanceof Error) {
-              toast.error(error.message);
-            } else {
-              toast.error("An unknown error occurred");
-            }
+        toast.error(error.message);
+      } else {
+        toast.error("An unknown error occurred");
+      }
     }
   };
 
@@ -75,11 +76,18 @@ const PriceCalculator = () => {
             <p className="text-2xl mb-5">Commission Type:</p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {commissionInfo.types.length < 1 ? (<div>
-                <p>You don't have any commission types yet</p>
-                <NavLink to={"/pricesettings"} className="underline mt-2 cursor-pointer">Add commission types</NavLink>
-              </div>) :
-              commissionInfo.types &&
+              {commissionInfo.types.length < 1 ? (
+                <div>
+                  <p>You don't have any commission types yet</p>
+                  <NavLink
+                    to={"/pricesettings"}
+                    className="underline mt-2 cursor-pointer"
+                  >
+                    Add commission types
+                  </NavLink>
+                </div>
+              ) : (
+                commissionInfo.types &&
                 commissionInfo.types.map((item) => (
                   <div key={item.label} className="flex gap-2">
                     <input
@@ -97,7 +105,7 @@ const PriceCalculator = () => {
                     </label>
                   </div>
                 ))
-              }
+              )}
             </div>
           </div>
           <div>
@@ -120,13 +128,18 @@ const PriceCalculator = () => {
             <p className="text-2xl mb-5">Extra Fees:</p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {commissionInfo.types.length < 1 ? (<div>
-              <p>You don't have any commission fees yet</p>
-              <NavLink to={"/pricesettings"} className="underline mt-2 cursor-pointer">Add commission fees</NavLink>
-            </div>
-              
-            ) :
-              commissionInfo.fees &&
+              {commissionInfo.types.length < 1 ? (
+                <div>
+                  <p>You don't have any commission fees yet</p>
+                  <NavLink
+                    to={"/pricesettings"}
+                    className="underline mt-2 cursor-pointer"
+                  >
+                    Add commission fees
+                  </NavLink>
+                </div>
+              ) : (
+                commissionInfo.fees &&
                 commissionInfo.fees.map((item) => (
                   <div key={item.label} className="flex gap-2">
                     <input
@@ -148,18 +161,31 @@ const PriceCalculator = () => {
                       {item.label} - ${item.value}
                     </label>
                   </div>
-                ))}
+                ))
+              )}
             </div>
           </div>
         </div>
       </form>
 
       {quote > 0 && (
-        <Invoice typePrice={typePrice} characterAmount={characterAmount} addCharaterPrice={addCharaterPrice} feePrices={feePrices} commissionType={commissionType} />
+        <>
+          <Invoice
+            typePrice={typePrice}
+            characterAmount={characterAmount}
+            addCharaterPrice={addCharaterPrice}
+            feePrices={feePrices}
+            commissionType={commissionType}
+          />
+          <Invoice2
+            typePrice={typePrice}
+            characterAmount={characterAmount}
+            addCharaterPrice={addCharaterPrice}
+            feePrices={feePrices}
+            commissionType={commissionType}
+          />
+        </>
       )}
-
-      
-
       {optionsOpen ? (
         <div className="bg-linear-to-b from-[#321234] to-[#140D2B] absolute right-0 bottom-0 rounded-l-md rounded-t-md pt-15 pb-20 px-15 z-20">
           <ul className="flex flex-col gap-8">
