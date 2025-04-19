@@ -4,7 +4,6 @@ import {
   View,
   Document,
   PDFDownloadLink,
-  PDFViewer,
 } from "@react-pdf/renderer";
 import { styles } from "./style";
 import { useEffect, useState } from "react";

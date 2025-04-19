@@ -5,13 +5,14 @@ import { AppContext } from "../context/AppContext";
 import axios from "axios";
 import { IProject } from "../types";
 import { toast } from "react-toastify";
+import ProjectDownload from "../components/projectPDF/ProjectDownload";
 
 const Project = () => {
   const { backendUrl, token, navigate } = useContext(AppContext);
   const { projectId } = useParams();
   const [projectData, setProjectData] = useState<IProject | null>(null);
 
-  const [menu, setMenu] = useState("closed")
+  const [menu, setMenu] = useState("closed");
 
   const [newDueDate, setNewDueDate] = useState("");
   const [newPriority, setNewPriority] = useState("");
@@ -39,7 +40,7 @@ const Project = () => {
         setProjectData(response.data.project);
       } else {
         console.log(response.data.message);
-        toast.error(response.data.message)
+        toast.error(response.data.message);
       }
     } catch (error) {
       console.log(error);
@@ -68,14 +69,13 @@ const Project = () => {
       );
 
       if (response.data.success) {
-        toast.success(response.data.message)
-        setMenu("closed")
+        toast.success(response.data.message);
+        setMenu("closed");
         fetchProjectInfo();
       } else {
-        console.log(response.data.message)
-        toast.error(response.data.message)
+        console.log(response.data.message);
+        toast.error(response.data.message);
       }
-
     } catch (error) {
       console.log(error);
       if (error instanceof Error) {
@@ -101,12 +101,12 @@ const Project = () => {
       );
 
       if (response.data.success) {
-        toast.success(response.data.message)
-        setMenu("closed")
+        toast.success(response.data.message);
+        setMenu("closed");
         fetchProjectInfo();
       } else {
-        console.log(response.data.message)
-        toast.error(response.data.message)
+        console.log(response.data.message);
+        toast.error(response.data.message);
       }
     } catch (error) {
       console.log(error);
@@ -133,12 +133,12 @@ const Project = () => {
       );
 
       if (response.data.success) {
-        toast.success(response.data.message)
-        setMenu("closed")
+        toast.success(response.data.message);
+        setMenu("closed");
         fetchProjectInfo();
       } else {
-        console.log(response.data.message)
-        toast.error(response.data.message)
+        console.log(response.data.message);
+        toast.error(response.data.message);
       }
     } catch (error) {
       console.log(error);
@@ -169,20 +169,20 @@ const Project = () => {
       );
 
       if (response.data.success) {
-        toast.success(response.data.message)
-        setMenu("closed")
+        toast.success(response.data.message);
+        setMenu("closed");
         fetchProjectInfo();
       } else {
-        console.log(response.data.message)
-        toast.error(response.data.message)
+        console.log(response.data.message);
+        toast.error(response.data.message);
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
       if (error instanceof Error) {
-              toast.error(error.message);
-            } else {
-              toast.error("An unknown error occurred");
-            }
+        toast.error(error.message);
+      } else {
+        toast.error("An unknown error occurred");
+      }
     }
   };
 
@@ -217,7 +217,7 @@ const Project = () => {
                 {projectData.priority ? (
                   <div
                     onClick={() => {
-                      setMenu("priority")
+                      setMenu("priority");
                     }}
                     className={`
       text-black w-fit px-3 py-2 text-xl
@@ -236,7 +236,7 @@ const Project = () => {
                 {projectData.paid ? (
                   <div
                     onClick={() => {
-                      setMenu("price")
+                      setMenu("price");
                     }}
                     className="bg-[#BBF491] text-black w-fit px-3 py-2 text-xl"
                   >
@@ -248,7 +248,7 @@ const Project = () => {
                 ) : (
                   <div
                     onClick={() => {
-                      setMenu("price")
+                      setMenu("price");
                     }}
                     className="bg-[#FF3762] text-black w-fit px-3 py-2 text-xl"
                   >
@@ -261,7 +261,7 @@ const Project = () => {
                 {projectData && projectData.duedate ? (
                   <div
                     onClick={() => {
-                      setMenu("duedate")
+                      setMenu("duedate");
                     }}
                     className={`${labelColor} text-black w-fit px-3 py-2 text-xl flex gap-2 items-center`}
                   >
@@ -341,7 +341,7 @@ const Project = () => {
             <hr />
             <li
               onClick={() => {
-                setMenu("complete")
+                setMenu("complete");
               }}
               className="flex gap-3"
             >
@@ -351,7 +351,7 @@ const Project = () => {
             <hr />
             <li
               onClick={() => {
-                setMenu("duedate")
+                setMenu("duedate");
               }}
               className="flex gap-3"
             >
@@ -361,13 +361,27 @@ const Project = () => {
             <hr />
             <li
               onClick={() => {
-                setMenu("priority")
+                setMenu("priority");
               }}
               className="flex gap-3"
             >
               <img className="max-h-[28px]" src={assets.checkmark} alt="" />
               <p className="text-lg">Change Priority</p>
             </li>
+            <hr />
+            <ProjectDownload
+              project_name={projectData.project_name}
+              customer_name={projectData.customer_name}
+              customer_email={projectData.customer_email}
+              customer_phone={projectData.customer_phone}
+              priority={projectData.priority}
+              paidStatus={projectData.paid}
+              paidAmount={projectData.amount_paid}
+              duedate={projectData.duedate}
+              images={projectData.images}
+              description={projectData.description}
+              notes={projectData.notes}
+            />
             <hr />
           </ul>
 
@@ -406,7 +420,7 @@ const Project = () => {
               <p className="mb-2">Is the project complete?</p>
               <button
                 onClick={() => {
-                  setMenu("closed")
+                  setMenu("closed");
                   markProjectComplete();
                 }}
                 className="bg-[#BBF491] rounded-md text-black py-2 px-5 flex gap-2 items-center justify-center"

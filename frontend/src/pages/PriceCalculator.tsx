@@ -6,7 +6,7 @@ import axios from "axios";
 import { ICommissionInfo } from "../types";
 import { toast } from "react-toastify";
 import Invoice from "../components/Invoice";
-import Invoice2 from "../components/invoice/invoice2";
+import Invoice2 from "../components/invoice/Invoice2";
 
 const PriceCalculator = () => {
   const { backendUrl, token } = useContext(AppContext);
