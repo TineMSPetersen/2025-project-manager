@@ -5,6 +5,7 @@ import { AppContext } from "../context/AppContext";
 import axios from "axios";
 import { ICommissionInfo } from "../types";
 import { toast } from "react-toastify";
+import Invoice from "../components/Invoice";
 
 const PriceCalculator = () => {
   const { backendUrl, token } = useContext(AppContext);
@@ -15,6 +16,7 @@ const PriceCalculator = () => {
   });
   const [optionsOpen, setOptionsOpen] = useState(false);
 
+  const [commissionType, setCommissionType] = useState("");
   const [typePrice, setTypePrice] = useState(0);
   const [characterAmount, setCharacterAmount] = useState(1);
   const [feePrices, setFeePrices] = useState<number[]>([]);
@@ -86,6 +88,7 @@ const PriceCalculator = () => {
                       value={item.value}
                       onChange={() => {
                         setTypePrice(Number(item.value));
+                        setCommissionType(item.label);
                         setAddCharacterPrice(item.add_character || 0);
                       }}
                     />
@@ -152,22 +155,10 @@ const PriceCalculator = () => {
       </form>
 
       {quote > 0 && (
-        <div className="text-center">
-          <p className="text-3xl mt-10">
-            Your Quote: {commissionInfo.currency} {quote}
-          </p>
-          <p>Calculations:</p>
-          <p> Base price: {typePrice} </p>
-          <p>
-            Extra character price: + {characterAmount - 1} * {addCharaterPrice}
-          </p>
-          <p>Fees: {feePrices.join(" + ")}</p>
-          <p>
-            Total: {typePrice} + {(characterAmount - 1) * addCharaterPrice} +{" "}
-            {feePrices.join(" + ")}
-          </p>
-        </div>
+        <Invoice typePrice={typePrice} characterAmount={characterAmount} addCharaterPrice={addCharaterPrice} feePrices={feePrices} commissionType={commissionType} />
       )}
+
+      
 
       {optionsOpen ? (
         <div className="bg-linear-to-b from-[#321234] to-[#140D2B] absolute right-0 bottom-0 rounded-l-md rounded-t-md pt-15 pb-20 px-15 z-20">
