@@ -28,15 +28,15 @@ const Projects = () => {
         setProjectsData(response.data.projectsData);
       } else {
         console.log(response.data.message);
-        toast.error(response.data.message)
+        toast.error(response.data.message);
       }
     } catch (error) {
       console.log(error);
       if (error instanceof Error) {
-              toast.error(error.message);
-            } else {
-              toast.error("An unknown error occurred");
-            }
+        toast.error(error.message);
+      } else {
+        toast.error("An unknown error occurred");
+      }
     }
   };
 
@@ -67,7 +67,13 @@ const Projects = () => {
 
   return (
     <>
-      <div className="grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-10 text-white">
+      <div className="grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-10 text-white">
+        <NavLink to="/newproject">
+          <div className="border-2 border-[#4A416A] p-6 h-fit min-h-[350px] relative rounded-md flex items-center justify-center">
+            <img className="w-20" src={assets.add} />
+          </div>
+        </NavLink>
+
         {projectsData.map((item) => {
           const daysLeft = calculateDaysLeft(item.duedate);
           const labelColor = getLabelColor(daysLeft);
@@ -75,13 +81,13 @@ const Projects = () => {
 
           return (
             <NavLink key={item._id} to={`/project/${item._id}`}>
-              <div className="bg-[#4A416A] p-6 h-fit relative rounded-md flex flex-col gap-4">
+              <div className="bg-[#4A416A] min-h-[350px] p-6 h-fit relative rounded-md flex flex-col gap-4">
                 <div>
                   <p className="text-2xl">{item.project_name}</p>
                   <p className="text-xl">{item.customer_name}</p>
                 </div>
                 <img
-                  className="h-fit max-h-[150px] object-cover w-full"
+                  className="h-fit max-h-[100px] object-cover w-full"
                   src={item.images[0]}
                 />
                 <p className="h-20 overflow-clip">
@@ -127,7 +133,6 @@ const Projects = () => {
           );
         })}
       </div>
-      <AddButton />
     </>
   );
 };
