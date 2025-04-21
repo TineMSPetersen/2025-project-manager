@@ -3,9 +3,10 @@ import mongoose from "mongoose";
 const teamSchema = new mongoose.Schema(
   {
     tean_name: { type: String, required: true },
-    creator: { type: String, required: true },
+    team_avatar: { type: String, default: ""},
+    owner: { type: String, required: true },
     members: { 
-      userId: { type: String, default: ""},
+      member_email: { type: String, default: ""},
       member_type: { type: String, default: "member"}
     },
   },

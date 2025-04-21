@@ -11,7 +11,10 @@ import Deadlines from "./pages/Deadlines";
 import { useContext } from "react";
 import { AppContext } from "./context/AppContext";
 import EditProject from "./pages/EditProject";
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer } from "react-toastify";
+import Teams from "./pages/Teams";
+import NewTeam from "./pages/NewTeam";
+import Team from "./pages/Team";
 
 const App = () => {
   const { token } = useContext(AppContext);
@@ -37,18 +40,22 @@ const App = () => {
               <Route path="/pricesettings" element={<PriceSettings />} />
               <Route path="/archive" element={<Archive />} />
               <Route path="/deadlines" element={<Deadlines />} />
+              <Route path="/teams" element={<Teams />} />
+              <Route path="/newteam" element={<NewTeam />} />
+              <Route path="/team/:teamId" element={<Team />} />
             </Routes>
             <ToastContainer
-            position="bottom-right"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick={false}
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light" />
+              position="bottom-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick={false}
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+            />
           </div>
         </div>
       ) : (

@@ -15,6 +15,8 @@ import upload_area from "./upload_area.png";
 import logout from './logout.png'
 import priority from './priority.png'
 import priority_white from './priority_white.png'
+import admin from './admin.png'
+import owner from './owner.png'
 
 export const assets = {
   header,
@@ -32,5 +34,57 @@ export const assets = {
   checkmark_black,
   upload_area,
   logout,
-  priority, priority_white
+  priority, priority_white,
+  admin, owner
 };
+
+export const team = [
+  {
+    id: "1",
+    team_name: "Test team",
+    team_avatar: "https://avatars.githubusercontent.com/u/111304307?v=4",
+    owner: "1234",
+    members: [
+      {
+        userId: "12345",
+        member_type: "admin",
+      },
+      {
+        userId: "54321",
+        member_type: "member",
+      },
+    ],
+  },
+  {
+    id: "2",
+    team_name: "Test team 2",
+    team_avatar: "https://avatars.githubusercontent.com/u/111304307?v=4",
+    owner: "1234",
+    members: [
+      {
+        userId: "12345",
+        member_type: "admin",
+      },
+      {
+        userId: "54321",
+        member_type: "member",
+      },
+      {
+        userId: "54321",
+        member_type: "member",
+      },
+      {
+        userId: "54321",
+        member_type: "admin",
+      },
+      {
+        userId: "54321",
+        member_type: "member",
+      },
+      {
+        userId: "54321",
+        member_type: "member",
+      },
+    ],
+  },
+];
