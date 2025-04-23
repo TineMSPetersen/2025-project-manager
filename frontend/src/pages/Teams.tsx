@@ -1,9 +1,43 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { assets, team } from "../assets/assets";
 import { AppContext } from "../context/AppContext";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const Teams = () => {
-  const { navigate } = useContext(AppContext);
+  const { navigate, backendUrl, token } = useContext(AppContext);
+  const [teamsInfo, setTeamsInfo] = useState([]);
+
+  const fetchTeamsInfo = async () => {
+    try {
+      const response = await axios.post(
+        backendUrl + "/api/team/list",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log("API Response:", response.data);
+
+      if (response.data.success) {
+        setTeamsInfo(response.data.teamsData);
+
+        console.log(teamsInfo);
+      } else {
+        console.log(response.data.message);
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      toast.error("An unknown error occurred");
+    }
+  };
+
+  useEffect(() => {
+    fetchTeamsInfo();
+  }, []);
 
   return (
     <div>
@@ -18,7 +52,7 @@ const Teams = () => {
           <p className="text-lg">Create new team</p>
         </div>
 
-        {team.map((item, index) => (
+        {teamsInfo.map((item, index) => (
           <div
             key={index}
             onClick={() => navigate(`/team/${item.id}`)}

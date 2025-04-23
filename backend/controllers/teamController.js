@@ -1,4 +1,5 @@
 import teamModel from "../models/teamModel.js";
+import userModel from "../models/userModel.js";
 import { v2 as cloudinary } from "cloudinary";
 
 const addTeam = async (req, res) => {
@@ -43,4 +44,29 @@ const addTeam = async (req, res) => {
   }
 }
 
-export { addTeam }
+const getTeams = async (req, res) => {
+  const { userId } = req.body;
+
+  try {
+    const user = await userModel.findById(userId);
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    const userEmail = user.email;
+
+    const teamsData = await teamModel.find({
+      $or: [
+        { owner: userId },
+        { "members.email": userEmail },
+      ],
+    });
+
+    res.json({success: true, teamsData})
+  } catch (error) {
+    console.log(error)
+    res.json({success: false, message: error.message})
+  }
+}
+
+export { addTeam, getTeams }
