@@ -2,13 +2,16 @@ import mongoose from "mongoose";
 
 const teamSchema = new mongoose.Schema(
   {
-    tean_name: { type: String, required: true },
+    team_name: { type: String, required: true },
     team_avatar: { type: String, default: ""},
     owner: { type: String, required: true },
-    members: { 
-      member_email: { type: String, default: ""},
-      member_type: { type: String, default: "member"}
+    members: [
+    {
+      email: { type: String, required: true },
+      type: { type: String, required: true },
     },
+  ],
+    date: { type: Number, required: true },
   },
   {
     minimize: false,

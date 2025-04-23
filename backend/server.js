@@ -6,6 +6,7 @@ import userRouter from "./routes/userRoute.js";
 import projectRouter from "./routes/projectRoute.js";
 import connectCloudinary from "./config/cloudinary.js";
 import commissionRouter from "./routes/commissionRoute.js";
+import teamRouter from "./routes/teamRoute.js";
 
 // App Config
 const app = express();
@@ -21,5 +22,6 @@ app.use(cors());
 app.use("/api/user", userRouter);
 app.use("/api/project", projectRouter);
 app.use("/api/commission", commissionRouter);
+app.use("/api/team", teamRouter);
 
 app.listen(port, () => console.log("Server started on Port : " + port));
