@@ -127,7 +127,7 @@ const EditProject = () => {
                 onChange={(e) => setCustomer_name(e.target.value)}
                 value={customer_name}
                 id="customername"
-                className="block mt-2 text-base"
+                className="block mt-2 text-base py-2 px-5 border border-white"
                 type="text"
                 placeholder={customer_name}
               />
@@ -139,7 +139,7 @@ const EditProject = () => {
                 onChange={(e) => setCustomer_email(e.target.value)}
                 value={customer_email}
                 id="customeremail"
-                className="block mt-2 text-base"
+                className="block mt-2 text-base py-2 px-5 border border-white"
                 type="text"
                 placeholder="customer@mail.com"
               />
@@ -151,7 +151,7 @@ const EditProject = () => {
                 onChange={(e) => setCustomer_phone(e.target.value)}
                 value={customer_phone}
                 id="customerphone"
-                className="block mt-2 text-base"
+                className="block mt-2 text-base py-2 px-5 border border-white"
                 type="number"
                 placeholder="12345678"
               />
@@ -169,7 +169,7 @@ const EditProject = () => {
                 <input
                   onChange={(e) => setProject_name(e.target.value)}
                   value={project_name}
-                  className="text-base block mt-2"
+                  className="text-base block mt-2 py-2 px-5 border border-white"
                   id="projectname"
                   type="text"
                   placeholder="Project name"
@@ -182,7 +182,7 @@ const EditProject = () => {
               <textarea
                 onChange={(e) => setDescription(e.target.value)}
                 value={description}
-                className="text-base block mt-2 w-full"
+                className="text-base block mt-2 w-full py-2 px-5 border border-white"
                 name="projectdescription"
                 id="projectdescription"
                 placeholder="Lorem ipsum dolor sit amed..."
@@ -194,7 +194,7 @@ const EditProject = () => {
               <p className="text-xs">Seperate each note by ';'</p>
               <textarea
                 onChange={(e) => setNotes(e.target.value)}
-                className="text-base block mt-2 w-full"
+                className="text-base block mt-2 w-full py-2 px-5 border border-white"
                 name="projectnotes"
                 id="projectnotes"
                 value={notes}

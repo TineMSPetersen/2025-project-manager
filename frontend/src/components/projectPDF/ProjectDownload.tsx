@@ -84,7 +84,7 @@ const ProjectDownload = ({
 
   return (
     <div>
-      <PDFDownloadLink document={projectPDF()} fileName="quote.pdf">
+      <PDFDownloadLink document={projectPDF()} fileName={project_name + '.pdf'}>
         <li className="flex gap-3">
           <p className="text-lg">Download PDF</p>
         </li>

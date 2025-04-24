@@ -365,10 +365,14 @@ const Project = () => {
               }}
               className="flex gap-3"
             >
-              <img className="max-h-[28px]" src={assets.checkmark} alt="" />
+              <img className="max-w-[26px]" src={assets.priority_wide} alt="" />{" "}
               <p className="text-lg">Change Priority</p>
             </li>
             <hr />
+            <li
+              className="flex gap-3"
+            >
+            <img className="max-h-[28px]" src={assets.download} />{" "}
             <ProjectDownload
               project_name={projectData.project_name}
               customer_name={projectData.customer_name}
@@ -382,6 +386,7 @@ const Project = () => {
               description={projectData.description}
               notes={projectData.notes}
             />
+            </li>
             <hr />
           </ul>
 

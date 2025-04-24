@@ -212,7 +212,7 @@ const PriceSettings = () => {
                 onChange={(e) => setTypeLabel(e.target.value)}
                 value={typeLabel}
                 id="label"
-                className="block mt-2 text-base"
+                className="block mt-2 text-base py-2 px-5 border border-white"
                 type="text"
                 placeholder="Headshot, Flat colors, e.t.c."
               />
@@ -223,7 +223,7 @@ const PriceSettings = () => {
                 onChange={(e) => setTypeValue(Number(e.target.value) || 0)}
                 value={typeValue}
                 id="value"
-                className="block mt-2 text-base"
+                className="block mt-2 text-base py-2 px-5 border border-white"
                 type="number"
               />
             </label>
@@ -233,7 +233,7 @@ const PriceSettings = () => {
                 onChange={(e) => setExtrachar(Number(e.target.value) || 0)}
                 value={extrachar}
                 id="value"
-                className="block mt-2 text-base"
+                className="block mt-2 text-base py-2 px-5 border border-white"
                 type="number"
               />
             </label>
@@ -273,6 +273,7 @@ const PriceSettings = () => {
                 value={feeType}
                 onChange={(e) => setFeeType(e.target.value)}
                 name="type"
+                className="py-2 px-5 border border-white block mt-2"
                 id="fee-type"
               >
                 <option value="">Select Fee Type</option>
@@ -286,7 +287,7 @@ const PriceSettings = () => {
                 onChange={(e) => setFeeLabel(e.target.value)}
                 value={feeLabel}
                 id="label"
-                className="block mt-2 text-base"
+                className="block mt-2 text-base py-2 px-5 border border-white"
                 type="text"
                 placeholder="Headshot, Flat colors, e.t.c."
               />
@@ -297,7 +298,7 @@ const PriceSettings = () => {
                 onChange={(e) => setFeeValue(Number(e.target.value) || 0)}
                 value={feeValue}
                 id="value"
-                className="block mt-2 text-base"
+                className="block mt-2 text-base py-2 px-5 border border-white"
                 type="text"
                 placeholder="Price in prefered currency"
               />
