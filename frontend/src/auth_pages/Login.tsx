@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { assets } from "../assets/assets";
 import axios from "axios";
 import { AppContext } from "../context/AppContext";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
 const Login = () => {
   const [state, setState] = useState("Login");
@@ -29,6 +29,7 @@ const Login = () => {
           navigate("/");
         } else {
           console.error(response.data.message);
+          console.log("Yiip")
           toast.error(response.data.message)
         }
       } else {
@@ -42,7 +43,7 @@ const Login = () => {
           localStorage.setItem("token", response.data.token);
           navigate("/");
         } else {
-          console.error(response.data.message);
+          console.error("Error:" + response.data.message);
           toast.error(response.data.message)
         }
       }
@@ -201,6 +202,7 @@ const Login = () => {
           </form>
         )}
       </div>
+      <ToastContainer />
     </div>
   );
 };

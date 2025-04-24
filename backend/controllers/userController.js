@@ -60,20 +60,21 @@ const LoginUser = async (req, res) => {
     // Check if user exists
     const user = await userModel.findOne({ email });
     if (!user) {
-      res.json({
+      return res.json({
         success: false,
         message: "User does not exist. Double check email",
       });
     }
 
+    // Compare passwords
     const isMatch = await bcrypt.compare(password, user.password);
-
-    if (isMatch) {
-      const token = createToken(user._id);
-      res.json({ success: true, token });
-    } else {
-      res.json({ success: false, message: "Wrong password" });
+    if (!isMatch) {
+      return res.json({ success: false, message: "Wrong password" });
     }
+
+    // Generate token if login is successful
+    const token = createToken(user._id);
+    res.json({ success: true, token });
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: error.message });

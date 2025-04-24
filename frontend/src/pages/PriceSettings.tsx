@@ -219,6 +219,7 @@ const PriceSettings = () => {
             </label>
             <label className="text-xl" htmlFor="value">
               Price:
+              <p className="text-xs">Base price of the artwork with one character and without any extra fees or charges</p>
               <input
                 onChange={(e) => setTypeValue(Number(e.target.value) || 0)}
                 value={typeValue}
@@ -229,10 +230,11 @@ const PriceSettings = () => {
             </label>
             <label className="text-xl" htmlFor="extrachar">
               Add character price:
+              <p className="text-xs">The amount added whenever the customer requests one more character. Example: Base Price: 40, extra character: 20. A piece with two characters will cost 40 + 20 = 60</p>
               <input
                 onChange={(e) => setExtrachar(Number(e.target.value) || 0)}
                 value={extrachar}
-                id="value"
+                id="extrachar"
                 className="block mt-2 text-base py-2 px-5 border border-white"
                 type="number"
               />
@@ -281,29 +283,30 @@ const PriceSettings = () => {
                 <option value="percentage">Percentage</option>
               </select>
             </label>
-            <label className="text-xl" htmlFor="label">
+            <label className="text-xl" htmlFor="feelabel">
               Commission Fee Label:
               <input
                 onChange={(e) => setFeeLabel(e.target.value)}
                 value={feeLabel}
-                id="label"
+                id="feelabel"
                 className="block mt-2 text-base py-2 px-5 border border-white"
                 type="text"
-                placeholder="Headshot, Flat colors, e.t.c."
+                placeholder="Complex character e.t.c."
               />
             </label>
-            <label className="text-xl" htmlFor="value">
+            <label className="text-xl" htmlFor="feeprice">
               Price:
+              <p className="text-xs">The amount added whenever the art piece requires a fee. For example: Base price: 40, Complex Character Fee: 20. A piece with a complex character will cost 40 + 20 = 60</p>
               <input
                 onChange={(e) => setFeeValue(Number(e.target.value) || 0)}
                 value={feeValue}
-                id="value"
+                id="feeprice"
                 className="block mt-2 text-base py-2 px-5 border border-white"
-                type="text"
+                type="number"
                 placeholder="Price in prefered currency"
               />
             </label>
-            <button className="cursor-pointer bg-linear-to-b from-[#FF0036] to-[#321234] w-[300px] py-4 rounded-xl outline-2 outline-[#FF0036]">
+            <button className="bg-linear-to-b from-[#FF0036] to-[#321234] w-[300px] py-4 rounded-xl outline-2 outline-[#FF0036]">
               Add New Fee
             </button>
           </div>

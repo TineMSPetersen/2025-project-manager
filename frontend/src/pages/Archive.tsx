@@ -3,7 +3,6 @@ import { assets } from "../assets/assets";
 import { IProject } from "../types";
 import { AppContext } from "../context/AppContext";
 import axios from "axios";
-import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const Archive = () => {
@@ -53,11 +52,11 @@ const Archive = () => {
           },
         }
       );
-
+  
       if (response.data.success) {
-        toast.success("Project deleted")
+        toast.success("Project deleted");
+        window.location.reload();
       }
-      fetchArchiveData();
     } catch (error) {
       console.log(error);
       if (error instanceof Error) {
