@@ -200,7 +200,7 @@ const PriceCalculator = () => {
 
           <img
             onClick={() => setOptionsOpen(false)}
-            className="absolute bottom-5 right-5"
+            className="cursor-pointer absolute bottom-5 right-5"
             src={assets.close}
             alt=""
           />
@@ -209,7 +209,7 @@ const PriceCalculator = () => {
 
       <div
         onClick={() => setOptionsOpen(true)}
-        className="bg-linear-to-b from-[#FF0036] to-[#321234] p-4 rounded-full outline-2 outline-[#FF0036] absolute bottom-5 right-5 z-10"
+        className="cursor-pointer bg-linear-to-b from-[#FF0036] to-[#321234] p-4 rounded-full outline-2 outline-[#FF0036] absolute bottom-5 right-5 z-10"
       >
         <img width={50} src={assets.options} alt="" />
       </div>

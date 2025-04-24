@@ -83,6 +83,7 @@ const Archive = () => {
         <hr className="mb-5" />
         {archiveData.map((item) => (
           <div>
+
             <div className="grid grid-cols-5">
               <p>{item.project_name}</p>
               <p>{item.customer_name}</p>
@@ -96,13 +97,12 @@ const Archive = () => {
               </p>
               <img
                 onClick={() => removeProject(item._id)}
-                className="w-4"
+                className="w-4 cursor-pointer"
                 src={assets.close}
                 alt="delete"
               />
             </div>
             <hr className="text-gray-700 my-5" />
-            <NavLink to={`/project/${item._id}`}></NavLink>
           </div>
         ))}
       </div>

@@ -220,7 +220,7 @@ const Project = () => {
                       setMenu("priority");
                     }}
                     className={`
-      text-black w-fit px-3 py-2 text-xl
+      text-black w-fit px-3 py-2 text-xl cursor-pointer
       ${
         projectData.priority === "High"
           ? "bg-gray-100"
@@ -238,7 +238,7 @@ const Project = () => {
                     onClick={() => {
                       setMenu("price");
                     }}
-                    className="bg-[#BBF491] text-black w-fit px-3 py-2 text-xl"
+                    className="bg-[#BBF491] text-black w-fit px-3 py-2 text-xl cursor-pointer"
                   >
                     PAID{" "}
                     {projectData.amount_paid
@@ -250,7 +250,7 @@ const Project = () => {
                     onClick={() => {
                       setMenu("price");
                     }}
-                    className="bg-[#FF3762] text-black w-fit px-3 py-2 text-xl"
+                    className="bg-[#FF3762] text-black w-fit px-3 py-2 text-xl cursor-pointer"
                   >
                     UNPAID{" "}
                     {projectData.amount_paid
@@ -263,7 +263,7 @@ const Project = () => {
                     onClick={() => {
                       setMenu("duedate");
                     }}
-                    className={`${labelColor} text-black w-fit px-3 py-2 text-xl flex gap-2 items-center`}
+                    className={`${labelColor} text-black w-fit px-3 py-2 text-xl flex gap-2 items-center cursor-pointer`}
                   >
                     <img
                       className="max-w-[70%] max-h-[70%] object-contain"
@@ -333,7 +333,7 @@ const Project = () => {
           <ul className="flex flex-col gap-8">
             <li
               onClick={() => navigate(`/project/${projectId}/edit`)}
-              className="flex gap-3"
+              className="flex gap-3 cursor-pointer"
             >
               <img className="max-h-[28px]" src={assets.settings} alt="" />
               <p className="text-lg">Edit Project Details</p>
@@ -343,7 +343,7 @@ const Project = () => {
               onClick={() => {
                 setMenu("complete");
               }}
-              className="flex gap-3"
+              className="flex gap-3 cursor-pointer"
             >
               <img className="max-h-[28px]" src={assets.checkmark} alt="" />
               <p className="text-lg">Mark complete</p>
@@ -353,7 +353,7 @@ const Project = () => {
               onClick={() => {
                 setMenu("duedate");
               }}
-              className="flex gap-3"
+              className="flex gap-3 cursor-pointer"
             >
               <img className="max-h-[28px]" src={assets.clock_white} />{" "}
               <p className="text-lg">Change Due Date</p>
@@ -363,14 +363,14 @@ const Project = () => {
               onClick={() => {
                 setMenu("priority");
               }}
-              className="flex gap-3"
+              className="flex gap-3 cursor-pointer"
             >
               <img className="max-w-[26px]" src={assets.priority_wide} alt="" />{" "}
               <p className="text-lg">Change Priority</p>
             </li>
             <hr />
             <li
-              className="flex gap-3"
+              className="flex gap-3 cursor-pointer"
             >
             <img className="max-h-[28px]" src={assets.download} />{" "}
             <ProjectDownload
@@ -392,7 +392,7 @@ const Project = () => {
 
           <img
             onClick={() => setMenu("closed")}
-            className="absolute bottom-5 right-5"
+            className="absolute bottom-5 right-5 cursor-pointer"
             src={assets.close}
             alt=""
           />
@@ -401,7 +401,7 @@ const Project = () => {
 
       <div
         onClick={() => setMenu("open")}
-        className="bg-linear-to-b from-[#FF0036] to-[#321234] p-4 rounded-full outline-2 outline-[#FF0036] absolute bottom-5 right-5 z-10"
+        className="bg-linear-to-b from-[#FF0036] to-[#321234] p-4 rounded-full outline-2 outline-[#FF0036] absolute bottom-5 right-5 z-10 cursor-pointer"
       >
         <img width={50} src={assets.options} alt="" />
       </div>
@@ -412,7 +412,7 @@ const Project = () => {
             <img
               onClick={() => setMenu("false")}
               src={assets.close}
-              className="w-5 h-5 absolute right-0 top-0"
+              className="w-5 h-5 absolute right-0 top-0 cursor-pointer"
             />
           </div>
           <div className="flex flex-col gap-5 items-center">
@@ -428,7 +428,7 @@ const Project = () => {
                   setMenu("closed");
                   markProjectComplete();
                 }}
-                className="bg-[#BBF491] rounded-md text-black py-2 px-5 flex gap-2 items-center justify-center"
+                className="bg-[#BBF491] rounded-md text-black py-2 px-5 flex gap-2 items-center justify-center cursor-pointer"
               >
                 <img className="h-5" src={assets.checkmark_black} />
                 <p>Yes, mark as complete</p>
@@ -444,7 +444,7 @@ const Project = () => {
             <img
               onClick={() => setMenu("closed")}
               src={assets.close}
-              className="w-5 h-5 absolute right-0 top-0"
+              className="w-5 h-5 absolute right-0 top-0 cursor-pointer"
             />
           </div>
           <div className="flex flex-col gap-5 items-center">
@@ -469,10 +469,9 @@ const Project = () => {
                   />
                 </label>
                 <div>
-                  <p className="mb-2">Is the project complete?</p>
                   <button
                     type="submit"
-                    className="bg-[#BBF491] rounded-md text-black py-2 px-5 flex gap-2 items-center justify-center"
+                    className="bg-[#BBF491] rounded-md text-black py-2 px-5 flex gap-2 items-center justify-center cursor-pointer"
                   >
                     <img className="h-5" src={assets.clock} />
                     <p>Change due date</p>
@@ -490,7 +489,7 @@ const Project = () => {
             <img
               onClick={() => setMenu("closed")}
               src={assets.close}
-              className="w-5 h-5 absolute right-0 top-0"
+              className="w-5 h-5 absolute right-0 top-0 cursor-pointer"
             />
           </div>
           <div className="flex flex-col gap-5 items-center">
@@ -544,7 +543,7 @@ const Project = () => {
                 </label>
                 <button
                   type="submit"
-                  className="bg-[#BBF491] rounded-md text-black py-2 px-5 flex gap-2 items-center justify-center mt-5"
+                  className="bg-[#BBF491] rounded-md text-black py-2 px-5 flex gap-2 items-center justify-center mt-5 cursor-pointer"
                 >
                   <p>Confirm</p>
                 </button>
@@ -560,7 +559,7 @@ const Project = () => {
             <img
               onClick={() => setMenu("closed")}
               src={assets.close}
-              className="w-5 h-5 absolute right-0 top-0"
+              className="w-5 h-5 absolute right-0 top-0 cursor-pointer"
             />
           </div>
           <div className="flex flex-col gap-5 items-center">
@@ -604,7 +603,7 @@ const Project = () => {
               </div>
               <button
                 type="submit"
-                className="bg-[#BBF491] rounded-md text-black py-2 px-5 flex gap-2 items-center justify-center mt-5"
+                className="bg-[#BBF491] rounded-md text-black py-2 px-5 flex gap-2 items-center justify-center mt-5 cursor-pointer"
               >
                 <p>Confirm</p>
               </button>

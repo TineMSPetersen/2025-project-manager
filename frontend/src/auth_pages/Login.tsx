@@ -100,14 +100,14 @@ const Login = () => {
             </div>
 
             <div className="flex flex-col gap-2 items-center">
-              <button className="bg-linear-to-b from-[#FF0036] to-[#321234] p-2 rounded-md outline-2 outline-[#FF0036] w-80">
+              <button className="bg-linear-to-b from-[#FF0036] to-[#321234] p-2 rounded-md outline-2 outline-[#FF0036] w-80 cursor-pointer">
                 {state}
               </button>
               <p
                 onClick={() =>
                   setState(state === "Login" ? "Create Account" : "Login")
                 }
-                className="underline text-sm cursor-pointer text-center"
+                className="underline text-lg mt-5 cursor-pointer text-center"
               >
                 {state === "Login"
                   ? "Not already a user? Create an account"
@@ -184,14 +184,14 @@ const Login = () => {
             </div>
 
             <div className="flex flex-col gap-2 items-center">
-              <button className="bg-linear-to-b from-[#FF0036] to-[#321234] p-2 rounded-md w-80 outline-2 outline-[#FF0036]">
+              <button className="bg-linear-to-b from-[#FF0036] to-[#321234] p-2 rounded-md w-80 outline-2 outline-[#FF0036] cursor-pointer">
                 {state}
               </button>
               <p
                 onClick={() =>
                   setState(state === "Login" ? "Create Account" : "Login")
                 }
-                className="underline text-sm cursor-pointer text-center"
+                className="underline text-lg mt-5 cursor-pointer text-center"
               >
                 {state === "Login"
                   ? "Not already a user? Create an account"

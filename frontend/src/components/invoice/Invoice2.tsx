@@ -62,7 +62,7 @@ const Invoice2 = ({
   return (
     <div className="flex justify-center">
       <PDFDownloadLink document={InvoicePDF()} fileName="quote.pdf">
-        <button className="bg-linear-to-b from-[#FF0036] to-[#321234] p-2 rounded-md outline-2 outline-[#FF0036] w-80">
+        <button className="cursor-pointer bg-linear-to-b from-[#FF0036] to-[#321234] p-2 rounded-md outline-2 outline-[#FF0036] w-80">
           Download PDF
         </button>
       </PDFDownloadLink>

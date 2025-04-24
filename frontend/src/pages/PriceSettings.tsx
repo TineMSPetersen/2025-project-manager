@@ -237,7 +237,7 @@ const PriceSettings = () => {
                 type="number"
               />
             </label>
-            <button className="bg-linear-to-b from-[#FF0036] to-[#321234] w-[300px] py-4 rounded-xl outline-2 outline-[#FF0036]">
+            <button className="cursor-pointer bg-linear-to-b from-[#FF0036] to-[#321234] w-[300px] py-4 rounded-xl outline-2 outline-[#FF0036]">
               Add New Type
             </button>
           </div>
@@ -303,7 +303,7 @@ const PriceSettings = () => {
                 placeholder="Price in prefered currency"
               />
             </label>
-            <button className="bg-linear-to-b from-[#FF0036] to-[#321234] w-[300px] py-4 rounded-xl outline-2 outline-[#FF0036]">
+            <button className="cursor-pointer bg-linear-to-b from-[#FF0036] to-[#321234] w-[300px] py-4 rounded-xl outline-2 outline-[#FF0036]">
               Add New Fee
             </button>
           </div>

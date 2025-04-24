@@ -40,7 +40,7 @@ const Sidebar = () => {
         </div>
       </div>
       <div>
-        <img width={50} src={assets.settings} onClick={() => setSettingsOpen(true)} />
+        <img className="cursor-pointer" width={50} src={assets.settings} onClick={() => setSettingsOpen(true)} />
       </div>
     </div>
 
@@ -48,7 +48,7 @@ const Sidebar = () => {
         <div className="bg-linear-to-b from-[#321234] to-[#140D2B] absolute left-0 bottom-0 rounded-l-md rounded-t-md pt-15 pb-20 px-15 z-20">
           <ul className="flex flex-col gap-8">
             <li
-              className="flex gap-3"
+              className="flex gap-3 cursor-pointer"
               onClick={() => logout()}
             >
               <img className="max-h-[28px]" src={assets.logout} alt="log out" />
@@ -59,7 +59,7 @@ const Sidebar = () => {
 
           <img
             onClick={() => setSettingsOpen(false)}
-            className="absolute bottom-5 left-5"
+            className="absolute bottom-5 left-5 cursor-pointer"
             src={assets.close}
             alt=""
           />

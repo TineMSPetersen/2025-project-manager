@@ -205,7 +205,7 @@ const EditProject = () => {
         </div>
 
         <div className="flex flex-col items-center">
-          <button className="mt-20 bg-linear-to-b from-[#FF0036] to-[#321234] w-[300px] py-4 rounded-xl outline-2 outline-[#FF0036]">
+          <button className="cursor-pointer bg-linear-to-b from-[#FF0036] to-[#321234] w-[300px] py-4 rounded-xl outline-2 outline-[#FF0036]">
             Save Changes
           </button>
         </div>
