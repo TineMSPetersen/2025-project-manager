@@ -401,7 +401,7 @@ const Project = () => {
 
       <div
         onClick={() => setMenu("open")}
-        className="bg-linear-to-b from-[#FF0036] to-[#321234] p-4 rounded-full outline-2 outline-[#FF0036] absolute bottom-5 right-5 z-10 cursor-pointer"
+        className=" p-4 rounded-full outline-2 outline-[#fff] absolute bottom-5 right-5 z-10 cursor-pointer"
       >
         <img width={50} src={assets.options} alt="" />
       </div>

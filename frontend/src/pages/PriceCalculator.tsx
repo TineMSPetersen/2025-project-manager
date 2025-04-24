@@ -9,7 +9,7 @@ import Invoice from "../components/Invoice";
 import Invoice2 from "../components/invoice/Invoice2";
 
 const PriceCalculator = () => {
-  const { backendUrl, token } = useContext(AppContext);
+  const { backendUrl, token, navigate } = useContext(AppContext);
   const [commissionInfo, setCommissionInfo] = useState<ICommissionInfo>({
     types: [],
     fees: [],
@@ -79,17 +79,15 @@ const PriceCalculator = () => {
               {commissionInfo.types.length < 1 ? (
                 <div>
                   <p>You don't have any commission types yet</p>
-                  <NavLink
-                    to={"/pricesettings"}
-                    className="underline mt-2 cursor-pointer"
-                  >
-                    Add commission types
-                  </NavLink>
+                  <button onClick={() => navigate('/pricesettings')} className="cursor-pointer bg-linear-to-b from-[#FF0036] to-[#321234] p-2 rounded-md outline-2 outline-[#FF0036] w-80 mt-5">
+          Add commission types
+        </button>
                 </div>
               ) : (
                 commissionInfo.types &&
                 commissionInfo.types.map((item) => (
-                  <div key={item.label} className="flex gap-2">
+                  <div>
+                  <div key={item.label} className="flex gap-2 mb-5">
                     <input
                       type="radio"
                       name="commission type"
@@ -103,6 +101,8 @@ const PriceCalculator = () => {
                     <label>
                       {item.label} - ${item.value}
                     </label>
+                  </div>
+                  <NavLink className="underline text-lg" to={'/pricesettings'}>Add or edit commission types</NavLink>
                   </div>
                 ))
               )}
@@ -128,20 +128,21 @@ const PriceCalculator = () => {
             <p className="text-2xl mb-5">Extra Fees:</p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {commissionInfo.types.length < 1 ? (
+              {commissionInfo.fees.length < 1 ? (
                 <div>
                   <p>You don't have any commission fees yet</p>
-                  <NavLink
-                    to={"/pricesettings"}
-                    className="underline mt-2 cursor-pointer"
+                  <button
+                    onClick={() => navigate('/pricesettings')}
+                    className="cursor-pointer bg-linear-to-b from-[#FF0036] to-[#321234] p-2 rounded-md outline-2 outline-[#FF0036] w-80 mt-5"
                   >
                     Add commission fees
-                  </NavLink>
+                  </button>
                 </div>
               ) : (
                 commissionInfo.fees &&
                 commissionInfo.fees.map((item) => (
-                  <div key={item.label} className="flex gap-2">
+                  <div>
+                  <div key={item.label} className="flex gap-2 mb-5">
                     <input
                       type="checkbox"
                       name="commission fees"
@@ -151,9 +152,7 @@ const PriceCalculator = () => {
                         if (e.target.checked) {
                           setFeePrices((prev) => [...prev, value]);
                         } else {
-                          setFeePrices((prev) =>
-                            prev.filter((fee) => fee !== value)
-                          );
+                          setFeePrices((prev) => prev.filter((fee) => fee !== value));
                         }
                       }}
                     />
@@ -161,6 +160,7 @@ const PriceCalculator = () => {
                       {item.label} - ${item.value}
                     </label>
                   </div>
+                  <NavLink className="underline text-lg" to={'/pricesettings'}>Add or edit commission fees</NavLink></div>
                 ))
               )}
             </div>
@@ -209,7 +209,7 @@ const PriceCalculator = () => {
 
       <div
         onClick={() => setOptionsOpen(true)}
-        className="cursor-pointer bg-linear-to-b from-[#FF0036] to-[#321234] p-4 rounded-full outline-2 outline-[#FF0036] absolute bottom-5 right-5 z-10"
+        className="p-4 rounded-full outline-2 outline-[#fff] absolute bottom-5 right-5 z-10 cursor-pointer"
       >
         <img width={50} src={assets.options} alt="" />
       </div>
