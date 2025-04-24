@@ -1,16 +1,49 @@
 import { useParams } from "react-router-dom";
 import { assets, team } from "../assets/assets";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import axios from "axios";
+import { AppContext } from "../context/AppContext";
+import { toast } from "react-toastify";
 
 const Team = () => {
   const { teamId } = useParams();
+  const { backendUrl, token } = useContext(AppContext);
   const teamData = team.find((item) => item.id === teamId);
   const [isOwner, setIsOwner] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [teamInfo, setTeamInfo] = useState(null);
+
+  const fetchTeamInfo = async () => {
+    try {
+      const response = await axios.post(
+        backendUrl + "/api/team/singleteam",
+        { teamId },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.data.success) {
+        setTeamInfo(response.data.team);
+        console.log(teamInfo);
+      } else {
+        console.log(response.data.message);
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      toast.error("An unknown error occurred");
+    }
+  };
+
+  useEffect(() => {
+    fetchTeamInfo();
+  }, []);
 
   return (
     <div>
-      <h1 className="text-5xl mb-15">{teamData?.team_name}</h1>
+      <h1 className="text-5xl mb-15">{teamInfo?.team_name}</h1>
 
       <div className="flex flex-col gap-10">
         <div>
@@ -18,20 +51,20 @@ const Team = () => {
           <div className="flex flex-col gap-2">
             <div className="flex gap-2 items-center">
               <img src={assets.owner} className="h-4" />
-              <p>{teamData?.owner}</p>
+              <p>{teamInfo?.owner}</p>
               <p className="text-xs text-gray-500">Owner</p>
             </div>
-            {teamData?.members.map((item, index) => (
+            {teamInfo?.members.map((item, index) => (
               <div key={index}>
                 {item.member_type === "admin" ? (
                   <div className="flex gap-2 items-center">
                     <img src={assets.admin} className="h-4" />
-                    <p>{item.userId}</p>
+                    <p>{item.email}</p>
                     <p className="text-xs text-gray-500">Admin</p>
                   </div>
                 ) : (
                   <div>
-                    <p>{item.userId}</p>
+                    <p>{item.email}</p>
                   </div>
                 )}
               </div>

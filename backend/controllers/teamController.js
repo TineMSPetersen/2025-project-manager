@@ -69,4 +69,30 @@ const getTeams = async (req, res) => {
   }
 }
 
-export { addTeam, getTeams }
+const getSingleTeam = async (req, res) => {
+  const { teamId, userId } = req.body;
+
+  try {
+    const user = await userModel.findById(userId);
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    const userEmail = user.email;
+
+    const team = await teamModel.findOne({
+          _id: teamId,
+          $or: [
+            { owner: userId },
+            { "members.email": userEmail },
+          ],
+        });
+
+        res.json({ success: true, team });
+  } catch (error) {
+    res.json({ success: false, message: error.message });
+  }
+
+}
+
+export { addTeam, getTeams, getSingleTeam }

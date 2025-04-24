@@ -55,7 +55,7 @@ const Teams = () => {
         {teamsInfo.map((item, index) => (
           <div
             key={index}
-            onClick={() => navigate(`/team/${item.id}`)}
+            onClick={() => navigate(`/team/${item._id}`)}
             className="border-2 border-[#4A416A] p-6 text-center flex flex-col gap-2 cursor-pointer"
           >
             <img src={item.team_avatar} />
