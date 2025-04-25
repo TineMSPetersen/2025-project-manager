@@ -106,7 +106,8 @@ const PriceCalculator = () => {
                   </div>
                 ))
               )}
-              <NavLink className="underline text-lg" to={'/pricesettings'}>Add or edit commission types</NavLink>
+              {commissionInfo.types.length > 1 ? (
+              <NavLink className="underline text-lg" to={'/pricesettings'}>Add or edit commission types</NavLink>) : null}
             </div>
           </div>
           <div>
@@ -164,7 +165,7 @@ const PriceCalculator = () => {
                   </div>
                 ))
               )}
-              <NavLink className="underline text-lg" to={'/pricesettings'}>Add or edit commission fees</NavLink>
+              {commissionInfo.fees.length > 1 ? ( <NavLink className="underline text-lg" to={'/pricesettings'}>Add or edit commission fees</NavLink> ) : null}
             </div>
           </div>
         </div>
