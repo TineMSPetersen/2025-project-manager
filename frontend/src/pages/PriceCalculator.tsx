@@ -102,10 +102,11 @@ const PriceCalculator = () => {
                       {item.label} - ${item.value}
                     </label>
                   </div>
-                  <NavLink className="underline text-lg" to={'/pricesettings'}>Add or edit commission types</NavLink>
+                  
                   </div>
                 ))
               )}
+              <NavLink className="underline text-lg" to={'/pricesettings'}>Add or edit commission types</NavLink>
             </div>
           </div>
           <div>
@@ -160,9 +161,10 @@ const PriceCalculator = () => {
                       {item.label} - ${item.value}
                     </label>
                   </div>
-                  <NavLink className="underline text-lg" to={'/pricesettings'}>Add or edit commission fees</NavLink></div>
+                  </div>
                 ))
               )}
+              <NavLink className="underline text-lg" to={'/pricesettings'}>Add or edit commission fees</NavLink>
             </div>
           </div>
         </div>
