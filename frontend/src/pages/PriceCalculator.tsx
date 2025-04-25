@@ -106,9 +106,10 @@ const PriceCalculator = () => {
                   </div>
                 ))
               )}
-              {commissionInfo.types.length > 1 ? (
-              <NavLink className="underline text-lg" to={'/pricesettings'}>Add or edit commission types</NavLink>) : null}
+              
             </div>
+            {commissionInfo.types.length > 0 ? (
+              <NavLink className="underline text-lg" to={'/pricesettings'}>Add or edit commission types</NavLink>) : null}
           </div>
           <div>
             <label className="text-2xl" htmlFor="characteramount">
@@ -165,8 +166,9 @@ const PriceCalculator = () => {
                   </div>
                 ))
               )}
-              {commissionInfo.fees.length > 1 ? ( <NavLink className="underline text-lg" to={'/pricesettings'}>Add or edit commission fees</NavLink> ) : null}
+              
             </div>
+            {commissionInfo.fees.length > 0 ? ( <NavLink className="underline text-lg" to={'/pricesettings'}>Add or edit commission fees</NavLink> ) : null}
           </div>
         </div>
       </form>
