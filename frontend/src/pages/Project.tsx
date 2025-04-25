@@ -233,31 +233,18 @@ const Project = () => {
                     <p>Priority: {projectData.priority}</p>
                   </div>
                 ) : null}
-                {projectData.paid ? (
-                  <div
-                    onClick={() => {
-                      setMenu("price");
-                    }}
-                    className="bg-[#BBF491] text-black w-fit px-3 py-2 text-xl cursor-pointer"
-                  >
-                    PAID{" "}
-                    {projectData.amount_paid
-                      ? "- $" + projectData.amount_paid
-                      : ""}
-                  </div>
-                ) : (
-                  <div
-                    onClick={() => {
-                      setMenu("price");
-                    }}
-                    className="bg-[#FF3762] text-black w-fit px-3 py-2 text-xl cursor-pointer"
-                  >
-                    UNPAID{" "}
-                    {projectData.amount_paid
-                      ? "- $" + projectData.amount_paid
-                      : ""}
-                  </div>
-                )}
+                <div
+                  onClick={() => {
+                    setMenu("price");
+                    setNewPrice(projectData?.amount_paid || 0);
+                  }}
+                  className={`${
+                    projectData.paid ? "bg-[#BBF491]" : "bg-[#FF3762]"
+                  } text-black w-fit px-3 py-2 text-xl cursor-pointer`}
+                >
+                  {projectData.paid ? "PAID" : "UNPAID"}{" "}
+                  {projectData.amount_paid ? "- $" + projectData.amount_paid : ""}
+                </div>
                 {projectData && projectData.duedate ? (
                   <div
                     onClick={() => {
@@ -401,7 +388,7 @@ const Project = () => {
 
       <div
         onClick={() => setMenu("open")}
-        className=" p-4 rounded-full outline-2 outline-[#fff] absolute bottom-5 right-5 z-10 cursor-pointer"
+        className="p-4 rounded-full outline-2 outline-[#fff] absolute bottom-5 right-5 z-10 cursor-pointer"
       >
         <img width={50} src={assets.options} alt="" />
       </div>
